@@ -1,1 +1,6 @@
+---
 services:
+    developtech_agility.project_manager:
+        class: DevelopTech\AgilityBundle\Manager\ProjectManager
+        arguments:
+            - "@doctrine.orm.entity_manager"
