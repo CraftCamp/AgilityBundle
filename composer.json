@@ -1,0 +1,18 @@
+{
+    "name": "developtech/agility-bundle",
+    "description": "Bundle implementing agile project management features in your project",
+    "type": "symfony-bundle",
+    "keywords": ["agility", "project-management"],
+    "license": "MIT",
+    "minimum-stability": "stable",
+    "authors": [
+        {
+            "name": "Axel Venet",
+            "email": "kern046@gmail.com",
+            "role": "Lead Developer"
+        }
+    ],
+    "support": {
+        "email": "kern046@gmail.com"
+    }
+}
