@@ -1,13 +1,13 @@
 <?php
 
-namespace DevelopTech\AgilityBundle\Tests\Entity;
+namespace DevelopTech\AgilityBundle\Tests\Model;
 
-use DevelopTech\AgilityBundle\Entity\Project;
+use DevelopTech\AgilityBundle\Model\ProjectModel;
 
-class ProjectTest extends \PHPUnit_Framework_TestCase {
-    public function testEntity() {
+class ProjectModelTest extends \PHPUnit_Framework_TestCase {
+    public function testModel() {
         $entity =
-            (new Project())
+            (new ProjectModel())
             ->setId(1)
             ->setName('Great project')
             ->setSlug('great-project')

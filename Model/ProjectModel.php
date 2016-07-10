@@ -1,6 +1,6 @@
 <?php
 
-namespace DevelopTech\AgilityBundle\Entity;
+namespace DevelopTech\AgilityBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="project")
  * @ORM\Entity(repositoryClass="DevelopTech\AgilityBundle\Repository\ProjectRepository")
  */
-class Project
+class ProjectModel
 {
     /**
      * @var int
