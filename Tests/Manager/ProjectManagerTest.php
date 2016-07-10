@@ -21,6 +21,15 @@ class ProjectManagerTest extends \PHPUnit_Framework_TestCase {
         $this->assertInstanceOf(ProjectModel::class, $projects[0]);
     }
 
+    public function testGetProject() {
+        $project = $this->manager->getProject('great-project');
+
+        $this->assertInstanceOf(ProjectModel::class, $project);
+        $this->assertEquals(3, $project->getId());
+        $this->assertEquals('Great project', $project->getName());
+        $this->assertEquals('great-project', $project->getSlug());
+    }
+
     public function getEntityManagerMock() {
         $entityManagerMock = $this
             ->getMockBuilder('Doctrine\ORM\EntityManager')
@@ -39,7 +48,16 @@ class ProjectManagerTest extends \PHPUnit_Framework_TestCase {
         $repositoryMock = $this
             ->getMockBuilder('DevelopTech\AgilityBundle\Repository\ProjectRepository')
             ->disableOriginalConstructor()
+            ->setMethods([
+                'findOneBySlug',
+                'findAll'
+            ])
             ->getMock()
+        ;
+        $repositoryMock
+            ->expects($this->any())
+            ->method('findOneBySlug')
+            ->willReturnCallback([$this, 'getProjectMock'])
         ;
         $repositoryMock
             ->expects($this->any())
@@ -47,6 +65,19 @@ class ProjectManagerTest extends \PHPUnit_Framework_TestCase {
             ->willReturnCallback([$this, 'getProjectsMock'])
         ;
         return $repositoryMock;
+    }
+
+    public function getProjectMock() {
+        return
+            (new ProjectModel())
+            ->setId(3)
+            ->setName('Great project')
+            ->setSlug('great-project')
+            ->setCreatedAt(new \DateTime())
+            ->setNbBetaTesters(12)
+            ->setBetaTestStatus('open')
+            ->setProductOwner(new \StdClass)
+        ;
     }
 
     public function getProjectsMock() {
