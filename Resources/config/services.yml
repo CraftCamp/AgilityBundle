@@ -1,6 +1,11 @@
 ---
 services:
     developtech_agility.project_manager:
-        class: DevelopTech\AgilityBundle\Manager\ProjectManager
+        class: Developtech\AgilityBundle\Manager\ProjectManager
         arguments:
             - "@doctrine.orm.entity_manager"
+            - "@developtech_agility.slugger"
+            - "%developtech_agility.model.project.class%"
+
+    developtech_agility.slugger:
+        class: Developtech\AgilityBundle\Utils\Slugger

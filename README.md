@@ -1,4 +1,4 @@
-DevelopTech Agility Bundle
+Developtech Agility Bundle
 ==========================
 
 Introduction
@@ -20,7 +20,7 @@ Install
 As any Symfony bundle, you can install this one using composer :
 
 ```
-composer require developtech/agility-bundle
+composer require Developtech/agility-bundle
 ```
 
 Then, just enable the bundle in your AppKernel file.
@@ -31,7 +31,7 @@ class AppKernel extends Kernel {
     public function registerBundles() {
         $bundles = [
             // ...
-            new DevelopTech\AgilityBundle\DevelopTechAgilityBundle()
+            new Developtech\AgilityBundle\DeveloptechAgilityBundle()
         ];
     }
 }
@@ -45,7 +45,7 @@ That's why you must extend some classes to use them, like projects.
 
 namespace AppBundle\Entity;
 
-use DevelopTech\AgilityBundle\ProjectModel;
+use Developtech\AgilityBundle\ProjectModel;
 
 use Doctrine\ORM\Mapping as ORM;
 

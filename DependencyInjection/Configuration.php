@@ -1,6 +1,6 @@
 <?php
 
-namespace DevelopTech\AgilityBundle\DependencyInjection;
+namespace Developtech\AgilityBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -18,12 +18,20 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('develop_tech_agility');
-
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
-
+        $rootNode = $treeBuilder->root('developtech_agility');
+        $rootNode
+            ->children()
+                ->arrayNode('model')->isRequired()
+                    ->children()
+                        ->arrayNode('class')->isRequired()
+                            ->children()
+                                ->scalarNode('project')->isRequired()->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
         return $treeBuilder;
     }
 }

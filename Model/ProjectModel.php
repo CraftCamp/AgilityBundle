@@ -1,6 +1,6 @@
 <?php
 
-namespace DevelopTech\AgilityBundle\Model;
+namespace Developtech\AgilityBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,9 +8,10 @@ use Doctrine\ORM\Mapping as ORM;
  * Project
  *
  * @ORM\Table(name="project")
- * @ORM\Entity(repositoryClass="DevelopTech\AgilityBundle\Repository\ProjectRepository")
+ * @ORM\Entity(repositoryClass="Developtech\AgilityBundle\Repository\ProjectRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
-class ProjectModel
+abstract class ProjectModel
 {
     /**
      * @var int
@@ -71,6 +72,13 @@ class ProjectModel
         $this->id = $id;
 
         return $this;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     */
+    public function prePersist() {
+        $this->createdAt = new \DateTime();
     }
 
     /**
