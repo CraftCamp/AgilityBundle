@@ -5,13 +5,16 @@ namespace Developtech\AgilityBundle\Tests\Manager;
 use Developtech\AgilityBundle\Manager\ProjectManager;
 
 use Developtech\AgilityBundle\Tests\Mock\Project;
+use Developtech\AgilityBundle\Tests\Mock\User;
+
+use Developtech\AgilityBundle\Utils\Slugger;
 
 class ProjectManagerTest extends \PHPUnit_Framework_TestCase {
     /** @var ProjectManager **/
     protected $manager;
 
     public function setUp() {
-        $this->manager = new ProjectManager($this->getEntityManagerMock(), Project::class);
+        $this->manager = new ProjectManager($this->getEntityManagerMock(), new Slugger(), Project::class);
     }
 
     public function testGetProjects() {
@@ -30,6 +33,15 @@ class ProjectManagerTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals('great-project', $project->getSlug());
     }
 
+    public function testCreateProject() {
+        $project = $this->manager->createProject('Great project', new User());
+
+        $this->assertInstanceOf(Project::class, $project);
+        $this->assertEquals('Great project', $project->getName());
+        $this->assertEquals('great-project', $project->getSlug());
+        $this->assertInstanceOf(User::class, $project->getProductOwner());
+    }
+
     public function getEntityManagerMock() {
         $entityManagerMock = $this
             ->getMockBuilder('Doctrine\ORM\EntityManager')
@@ -40,6 +52,16 @@ class ProjectManagerTest extends \PHPUnit_Framework_TestCase {
             ->expects($this->any())
             ->method('getRepository')
             ->willReturnCallback([$this, 'getRepositoryMock'])
+        ;
+        $entityManagerMock
+            ->expects($this->any())
+            ->method('persist')
+            ->willReturn(true)
+        ;
+        $entityManagerMock
+            ->expects($this->any())
+            ->method('flush')
+            ->willReturn(true)
         ;
         return $entityManagerMock;
     }
