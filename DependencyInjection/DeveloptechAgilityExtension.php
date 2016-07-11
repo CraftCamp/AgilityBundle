@@ -1,6 +1,6 @@
 <?php
 
-namespace DevelopTech\AgilityBundle\DependencyInjection;
+namespace Developtech\AgilityBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * @link http://symfony.com/doc/current/cookbook/bundles/extension.html
  */
-class DevelopTechAgilityExtension extends Extension
+class DeveloptechAgilityExtension extends Extension
 {
     /**
      * {@inheritdoc}
@@ -21,6 +21,8 @@ class DevelopTechAgilityExtension extends Extension
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
+
+        $container->setParameter('developtech_agility.model.project.class', $config['model']['class']['project']);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');

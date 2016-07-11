@@ -1,30 +1,30 @@
 <?php
 
-namespace DevelopTech\AgilityBundle\Tests\Manager;
+namespace Developtech\AgilityBundle\Tests\Manager;
 
-use DevelopTech\AgilityBundle\Manager\ProjectManager;
+use Developtech\AgilityBundle\Manager\ProjectManager;
 
-use DevelopTech\AgilityBundle\Model\ProjectModel;
+use Developtech\AgilityBundle\Tests\Mock\Project;
 
 class ProjectManagerTest extends \PHPUnit_Framework_TestCase {
     /** @var ProjectManager **/
     protected $manager;
 
     public function setUp() {
-        $this->manager = new ProjectManager($this->getEntityManagerMock());
+        $this->manager = new ProjectManager($this->getEntityManagerMock(), Project::class);
     }
 
     public function testGetProjects() {
         $projects = $this->manager->getProjects();
 
         $this->assertCount(3, $projects);
-        $this->assertInstanceOf(ProjectModel::class, $projects[0]);
+        $this->assertInstanceOf(Project::class, $projects[0]);
     }
 
     public function testGetProject() {
         $project = $this->manager->getProject('great-project');
 
-        $this->assertInstanceOf(ProjectModel::class, $project);
+        $this->assertInstanceOf(Project::class, $project);
         $this->assertEquals(3, $project->getId());
         $this->assertEquals('Great project', $project->getName());
         $this->assertEquals('great-project', $project->getSlug());
@@ -46,7 +46,7 @@ class ProjectManagerTest extends \PHPUnit_Framework_TestCase {
 
     public function getRepositoryMock() {
         $repositoryMock = $this
-            ->getMockBuilder('DevelopTech\AgilityBundle\Repository\ProjectRepository')
+            ->getMockBuilder('Developtech\AgilityBundle\Repository\ProjectRepository')
             ->disableOriginalConstructor()
             ->setMethods([
                 'findOneBySlug',
@@ -69,7 +69,7 @@ class ProjectManagerTest extends \PHPUnit_Framework_TestCase {
 
     public function getProjectMock() {
         return
-            (new ProjectModel())
+            (new Project())
             ->setId(3)
             ->setName('Great project')
             ->setSlug('great-project')
@@ -82,19 +82,19 @@ class ProjectManagerTest extends \PHPUnit_Framework_TestCase {
 
     public function getProjectsMock() {
         return  [
-            (new ProjectModel())
+            (new Project())
             ->setName('Great Project')
             ->setSlug('great-project')
             ->setCreatedAt(new \DateTime())
             ->setNbBetaTesters(12)
             ->setBetaTestStatus('open'),
-            (new ProjectModel())
+            (new Project())
             ->setName('Bloody Project')
             ->setSlug('bloody-project')
             ->setCreatedAt(new \DateTime())
             ->setNbBetaTesters(17)
             ->setBetaTestStatus('closed'),
-            (new ProjectModel())
+            (new Project())
             ->setName('Messy Project')
             ->setSlug('messy-project')
             ->setCreatedAt(new \DateTime())

@@ -1,29 +1,32 @@
 <?php
 
-namespace DevelopTech\AgilityBundle\Manager;
+namespace Developtech\AgilityBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
 
-use DevelopTech\AgilityBundle\Entity\Project;
+use Developtech\AgilityBundle\Entity\Project;
 
 use Symfony\Component\HttpKernel\Exception\HttpNotFoundException;
 
 class ProjectManager {
     /** @var Doctrine\ORM\EntityManager **/
     protected $em;
+    /** @var string **/
+    protected $projectClass;
 
     /**
      * @param Doctrine\ORM\EntityManager $em
      */
-    public function __construct(EntityManager $em) {
+    public function __construct(EntityManager $em, $projectClass) {
         $this->em = $em;
+        $this->projectClass = $projectClass;
     }
 
     /**
      * @return array
      */
     public function getProjects() {
-        return $this->em->getRepository(ProjectModel::class)->findAll();
+        return $this->em->getRepository($this->projectClass)->findAll();
     }
 
     /**
@@ -31,7 +34,7 @@ class ProjectManager {
      * @return ProjectModel
      */
     public function getProject($slug) {
-        $project = $this->em->getRepository(ProjectModel::class)->findOneBySlug($slug);
+        $project = $this->em->getRepository($this->projectClass)->findOneBySlug($slug);
         if($project === null) {
             throw new HttpNotFoundException('Project not found');
         }

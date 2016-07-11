@@ -1,6 +1,6 @@
 <?php
 
-namespace DevelopTech\AgilityBundle\Repository;
+namespace Developtech\AgilityBundle\Repository;
 
 /**
  * ProjectRepository
