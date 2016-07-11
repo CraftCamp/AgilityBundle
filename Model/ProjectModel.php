@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="project")
  * @ORM\Entity(repositoryClass="Developtech\AgilityBundle\Repository\ProjectRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 abstract class ProjectModel
 {
@@ -71,6 +72,13 @@ abstract class ProjectModel
         $this->id = $id;
 
         return $this;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     */
+    public function prePersist() {
+        $this->createdAt = new \DateTime();
     }
 
     /**
