@@ -4,10 +4,11 @@ namespace Developtech\AgilityBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 /**
  * Project
  *
- * @ORM\Table(name="project")
  * @ORM\Entity(repositoryClass="Developtech\AgilityBundle\Repository\ProjectRepository")
  * @ORM\HasLifecycleCallbacks()
  */
@@ -65,6 +66,17 @@ abstract class ProjectModel
     protected $productOwner;
 
     /**
+     * @var ArrayCollection
+     *
+     * The mapping to the features can be done by the end-user but is optionnal
+     */
+    protected $features;
+
+    public function __construct() {
+        $this->features = new ArrayCollection();
+    }
+
+    /**
      * @param integer $id
      * @return Project
      */
@@ -96,7 +108,7 @@ abstract class ProjectModel
      *
      * @param string $name
      *
-     * @return Project
+     * @return ProjectModel
      */
     public function setName($name)
     {
@@ -120,7 +132,7 @@ abstract class ProjectModel
      *
      * @param string $slug
      *
-     * @return Project
+     * @return ProjectModel
      */
     public function setSlug($slug)
     {
@@ -144,7 +156,7 @@ abstract class ProjectModel
      *
      * @param \DateTime $createdAt
      *
-     * @return Project
+     * @return ProjectModel
      */
     public function setCreatedAt($createdAt)
     {
@@ -168,7 +180,7 @@ abstract class ProjectModel
      *
      * @param integer $nbBetaTesters
      *
-     * @return Project
+     * @return ProjectModel
      */
     public function setNbBetaTesters($nbBetaTesters)
     {
@@ -192,7 +204,7 @@ abstract class ProjectModel
      *
      * @param string $betaTestStatus
      *
-     * @return Project
+     * @return ProjectModel
      */
     public function setBetaTestStatus($betaTestStatus)
     {
@@ -216,7 +228,7 @@ abstract class ProjectModel
      *
      * @param object $productOwner
      *
-     * @return Project
+     * @return ProjectModel
      */
     public function setProductOwner($productOwner)
     {
@@ -233,5 +245,40 @@ abstract class ProjectModel
     public function getProductOwner()
     {
         return $this->productOwner;
+    }
+
+    /**
+     * @param FeatureModel $feature
+     * @return ProjectModel
+     */
+    public function addFeature(FeatureModel $feature) {
+        $this->features->add($feature);
+
+        return $this;
+    }
+
+    /**
+     * @param FeatureModel $feature
+     * @return ProjectModel
+     */
+    public function removeFeature(FeatureModel $feature) {
+        $this->features->removeElement($feature);
+
+        return $this;
+    }
+
+    /**
+     * @param FeatureModel $feature
+     * @return boolean
+     */
+    public function hasFeature(FeatureModel $feature) {
+        return $this->features->contains($feature);
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getFeatures() {
+        return $this->features;
     }
 }
