@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityManager;
 
 use Developtech\AgilityBundle\Entity\Project;
 
-use Symfony\Component\HttpKernel\Exception\HttpNotFoundException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -38,12 +38,13 @@ class ProjectManager {
 
     /**
      * @param string $slug
+     * @throws NotFoundHttpException
      * @return ProjectModel
      */
     public function getProject($slug) {
         $project = $this->em->getRepository($this->projectClass)->findOneBySlug($slug);
         if($project === null) {
-            throw new HttpNotFoundException('Project not found');
+            throw new NotFoundHttpException('Project not found');
         }
         return $project;
     }
@@ -63,6 +64,32 @@ class ProjectManager {
             ->setNbBetaTesters(0)
         ;
         $this->em->persist($project);
+        $this->em->flush();
+        return $project;
+    }
+
+    /**
+     * @param integer $id
+     * @param string $name
+     * @param integer $betaTestStatus
+     * @param integer $nbBetaTesters
+     * @param UserInterface $productOwner
+     * @throws NotFoundHttpException
+     * @return ProjectModel
+     */
+    public function editProject($id, $name, $betaTestStatus, $nbBetaTesters, UserInterface $productOwner = null) {
+        if (($project = $this->em->getRepository($this->projectClass)->find($id)) === null) {
+            throw new NotFoundHttpException('Project not found');
+        }
+        $project
+            ->setName($name)
+            ->setSlug($this->slugger->slugify($name))
+            ->setBetaTestStatus($betaTestStatus)
+            ->setNbBetaTesters($nbBetaTesters)
+        ;
+        if($productOwner !== null) {
+            $project->setProductOwner($productOwner);
+        }
         $this->em->flush();
         return $project;
     }
