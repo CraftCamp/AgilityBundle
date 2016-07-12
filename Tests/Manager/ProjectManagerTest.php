@@ -9,6 +9,8 @@ use Developtech\AgilityBundle\Tests\Mock\User;
 
 use Developtech\AgilityBundle\Utils\Slugger;
 
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 class ProjectManagerTest extends \PHPUnit_Framework_TestCase {
     /** @var ProjectManager **/
     protected $manager;
@@ -42,6 +44,25 @@ class ProjectManagerTest extends \PHPUnit_Framework_TestCase {
         $this->assertInstanceOf(User::class, $project->getProductOwner());
     }
 
+    public function testEditProject() {
+        $project = $this->manager->editProject(3, 'Updated project', 'open', 10);
+
+        $this->assertInstanceOf(Project::class, $project);
+        $this->assertEquals(3, $project->getId());
+        $this->assertEquals('Updated project', $project->getName());
+        $this->assertEquals('updated-project', $project->getSlug());
+        $this->assertEquals('open', $project->getBetaTestStatus());
+        $this->assertEquals(10, $project->getNbBetaTesters());
+    }
+
+    /**
+     * @expectedException \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @expectedExceptionMessage Project not found
+     */
+    public function testEditProjectWithUnexistingProject() {
+        $this->manager->editProject(2, 'Unknown project', 'closed', 0);
+    }
+
     public function getEntityManagerMock() {
         $entityManagerMock = $this
             ->getMockBuilder('Doctrine\ORM\EntityManager')
@@ -71,10 +92,16 @@ class ProjectManagerTest extends \PHPUnit_Framework_TestCase {
             ->getMockBuilder('Developtech\AgilityBundle\Repository\ProjectRepository')
             ->disableOriginalConstructor()
             ->setMethods([
+                'find',
                 'findOneBySlug',
                 'findAll'
             ])
             ->getMock()
+        ;
+        $repositoryMock
+            ->expects($this->any())
+            ->method('find')
+            ->willReturnCallback([$this, 'getProjectMock'])
         ;
         $repositoryMock
             ->expects($this->any())
@@ -89,7 +116,14 @@ class ProjectManagerTest extends \PHPUnit_Framework_TestCase {
         return $repositoryMock;
     }
 
-    public function getProjectMock() {
+    /**
+     * @param mixed $id
+     * @return Project|null
+     */
+    public function getProjectMock($id) {
+        if($id === 2) {
+            return null;
+        }
         return
             (new Project())
             ->setId(3)
