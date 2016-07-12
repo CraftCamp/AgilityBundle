@@ -42,7 +42,7 @@ Some of the bundle entities must be mapped to your user class.
 That's why you must extend some classes to use them, like projects.
 
 ```php
-
+// AppBundle\Entity\Project.php
 namespace AppBundle\Entity;
 
 use Developtech\AgilityBundle\ProjectModel;
@@ -57,6 +57,47 @@ class Project extends ProjectModel {
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
      */
     protected $productOwner;
+
+    /**
+     * @var ArrayCollection
+     *
+     * The feature class you extended
+     * It is not mandatory to create a bi-directional relationship between projects and features
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\UserStory", mappedBy="project")
+     */
+    protected $features;
+}
+
+```
+
+```php
+// AppBundle\Entity\UserStory.php
+namespace AppBundle\Entity;
+
+use Developtech\AgilityBundle\FeatureModel;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity()
+ */
+class UserStory extends FeatureModel {
+    /**
+     * @var UserInterface
+     *
+     * The user story responsible
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     */
+    protected $developer;
+
+    /**
+     * @var Project
+     *
+     * The project class you extended
+     * It is not mandatory to create a bi-directional relationship between projects and features
+     * @ManyToOne(targetEntity="AppBundle\Entity\Project", inversedBy="features")
+     */
+    protected $project;
 }
 
 ```

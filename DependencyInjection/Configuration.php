@@ -26,6 +26,7 @@ class Configuration implements ConfigurationInterface
                         ->arrayNode('class')->isRequired()
                             ->children()
                                 ->scalarNode('project')->isRequired()->end()
+                                ->scalarNode('feature')->isRequired()->end()
                             ->end()
                         ->end()
                     ->end()
