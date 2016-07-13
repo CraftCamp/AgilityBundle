@@ -9,3 +9,4 @@
 * Project features list service
 * Get feature service
 * Setup documentation
+* Continuous integration with Travis and Scrutinizer
