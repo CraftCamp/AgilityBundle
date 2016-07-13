@@ -15,6 +15,22 @@ class FeatureManagerTest extends \PHPUnit_Framework_TestCase {
         $this->manager = new FeatureManager($this->getEntityManagerMock(), Feature::class);
     }
 
+    public function testGetFeature() {
+        $feature = $this->manager->getFeature(1);
+
+        $this->assertInstanceOf(Feature::class, $feature);
+        $this->assertEquals(1, $feature->getId());
+        $this->assertEquals('Calendar creation', $feature->getName());
+    }
+
+    /**
+     * @expectedException \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @expectedExceptionMessage Feature not found
+     */
+    public function testGetFeatureWithUnexistingFeature() {
+        $this->manager->getFeature(2);
+    }
+
     public function testGetProjectFeatures() {
         $features = $this->manager->getProjectFeatures((new Project()));
 
@@ -41,8 +57,16 @@ class FeatureManagerTest extends \PHPUnit_Framework_TestCase {
         $repositoryMock = $this
             ->getMockBuilder('Developtech\AgilityBundle\Repository\FeatureRepository')
             ->disableOriginalConstructor()
-            ->setMethods(['findByProject'])
+            ->setMethods([
+                'find',
+                'findByProject'
+            ])
             ->getMock()
+        ;
+        $repositoryMock
+            ->expects($this->any())
+            ->method('find')
+            ->willReturnCallback([$this, 'getFeatureMock'])
         ;
         $repositoryMock
             ->expects($this->any())
@@ -50,6 +74,23 @@ class FeatureManagerTest extends \PHPUnit_Framework_TestCase {
             ->willReturnCallback([$this, 'getFeaturesMock'])
         ;
         return $repositoryMock;
+    }
+
+    public function getFeatureMock($id) {
+        if($id === 2) {
+            return null;
+        }
+        return
+            (new Feature())
+            ->setId(1)
+            ->setName('Calendar creation')
+            ->setSlug('calendar-creation')
+            ->setDescription('Create a new calendar')
+            ->setProject(new Project())
+            ->setDeveloper(new User())
+            ->setCreatedAt(new \DateTime())
+            ->setUpdatedAt(new \DateTime())
+        ;
     }
 
     public function getFeaturesMock() {
