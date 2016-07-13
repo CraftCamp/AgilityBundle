@@ -1,6 +1,10 @@
 Developtech Agility Bundle
 ==========================
 
+[![Build Status](https://scrutinizer-ci.com/g/DevelopTech/AgilityBundle/badges/build.png?b=master)](https://scrutinizer-ci.com/g/DevelopTech/AgilityBundle/build-status/master)
+[![Code Coverage](https://scrutinizer-ci.com/g/DevelopTech/AgilityBundle/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/DevelopTech/AgilityBundle/?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/DevelopTech/AgilityBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/DevelopTech/AgilityBundle/?branch=master)
+
 Introduction
 ------------
 
