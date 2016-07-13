@@ -11,6 +11,7 @@ services:
         class: Developtech\AgilityBundle\Manager\FeatureManager
         arguments:
             - "@doctrine.orm.entity_manager"
+            - "@developtech_agility.slugger"
             - "%developtech_agility.model.feature.class%"
 
     developtech_agility.slugger:

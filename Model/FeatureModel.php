@@ -23,6 +23,13 @@ abstract class FeatureModel {
     /**
      * @var string
      *
+     * @ORM\Column(type="string", length="15")
+     */
+    protected $type;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(type="string", length=255)
      */
     protected $name;
@@ -127,6 +134,23 @@ abstract class FeatureModel {
      */
     public function getId() {
         return $this->id;
+    }
+
+    /**
+     * @param string $type
+     * @return FeatureModel
+     */
+    public function setType($type) {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType() {
+        return $this->type;
     }
 
     /**

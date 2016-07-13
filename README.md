@@ -1,4 +1,4 @@
-Developtech Agility Bundle
+DevelopTech Agility Bundle
 ==========================
 
 [![Build Status](https://scrutinizer-ci.com/g/DevelopTech/AgilityBundle/badges/build.png?b=master)](https://scrutinizer-ci.com/g/DevelopTech/AgilityBundle/build-status/master)
@@ -24,7 +24,7 @@ Install
 As any Symfony bundle, you can install this one using composer :
 
 ```
-composer require Developtech/agility-bundle
+composer require developtech/agility-bundle
 ```
 
 Then, just enable the bundle in your AppKernel file.
@@ -112,3 +112,4 @@ Documentation
 -------------
 
 * [Projects](Resources/doc/projects.md)
+* [Features (User stories)](Resources/doc/features.md)
