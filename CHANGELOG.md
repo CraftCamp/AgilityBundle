@@ -7,4 +7,5 @@
 * Project edition service
 * Feature model
 * Project features list service
+* Get feature service
 * Setup documentation
