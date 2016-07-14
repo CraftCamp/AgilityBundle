@@ -304,7 +304,7 @@ abstract class ProjectModel
      * @param FeedbackModel $feedback
      * @return ProjectModel
      */
-    public function removeFeature(FeedbackModel $feedback) {
+    public function removeFeedback(FeedbackModel $feedback) {
         $this->feedbacks->removeElement($feedback);
 
         return $this;
