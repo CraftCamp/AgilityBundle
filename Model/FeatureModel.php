@@ -23,7 +23,7 @@ abstract class FeatureModel {
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length="15")
+     * @ORM\Column(type="string", length=15)
      */
     protected $type;
 

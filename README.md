@@ -45,6 +45,18 @@ Some of the bundle entities must be mapped to your user class.
 
 That's why you must extend some classes to use them, like projects.
 
+Let's begin with some configuration :
+
+```yaml
+# app/config/config.yml
+developtech_agility:
+    model:
+        class:
+            project: AppBundle\Entity\Project
+            feature: AppBundle\Entity\UserStory
+            feedback: AppBundle\Entity\Feedback
+```
+
 ```php
 // AppBundle\Entity\Project.php
 namespace AppBundle\Entity;
@@ -70,6 +82,15 @@ class Project extends ProjectModel {
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\UserStory", mappedBy="project")
      */
     protected $features;
+
+    /**
+     * @var ArrayCollection
+     *
+     * The feedback class you extended
+     * It is not mandatory to create a bi-directional relationship between projects and feedbacks
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Feedback", mappedBy="project")
+     */
+    protected $feedbacks;
 }
 
 ```
@@ -106,6 +127,44 @@ class UserStory extends FeatureModel {
 
 ```
 
+```php
+// AppBundle\Entity\Feedback.php
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+use Developtech\AgilityBundle\Model\FeedbackModel;
+
+/**
+ * @ORM\Entity()
+ */
+class Feedback extends FeedbackModel {
+    /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    protected $author;
+
+    /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    protected $developer;
+
+    /**
+     * @var Project
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Project", inversedBy="features")
+     */
+    protected $project;
+}
+
+```
+
 Now you're done, you can use it the way you want !
 
 Documentation
@@ -113,3 +172,4 @@ Documentation
 
 * [Projects](Resources/doc/projects.md)
 * [Features (User stories)](Resources/doc/features.md)
+* [Feedbacks](Resources/doc/feedbacks.md)
