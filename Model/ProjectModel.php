@@ -72,8 +72,16 @@ abstract class ProjectModel
      */
     protected $features;
 
+    /**
+     * @var ArrayCollection
+     *
+     * The mapping to the feedbacks can be done by the end-user but is optionnal
+     */
+    protected $feedbacks;
+
     public function __construct() {
         $this->features = new ArrayCollection();
+        $this->feedbacks = new ArrayCollection();
     }
 
     /**
@@ -280,5 +288,40 @@ abstract class ProjectModel
      */
     public function getFeatures() {
         return $this->features;
+    }
+
+    /**
+     * @param FeedbackModel $feedback
+     * @return ProjectModel
+     */
+    public function addFeedback(FeedbackModel $feedback) {
+        $this->feedbacks->add($feedback);
+
+        return $this;
+    }
+
+    /**
+     * @param FeedbackModel $feedback
+     * @return ProjectModel
+     */
+    public function removeFeature(FeedbackModel $feedback) {
+        $this->feedbacks->removeElement($feedback);
+
+        return $this;
+    }
+
+    /**
+     * @param FeedbackModel $feedback
+     * @return boolean
+     */
+    public function hasFeedback(FeedbackModel $feedback) {
+        return $this->feedbacks->contains($feedback);
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getFeedbacks() {
+        return $this->feedbacks;
     }
 }
