@@ -24,6 +24,21 @@ class FeedbackManagerTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(2, $feedbacks[1]->getId());
     }
 
+    public function testGetFeedback() {
+        $feedback = $this->manager->getFeedback(1);
+
+        $this->assertInstanceOf(Feedback::class, $feedback);
+        $this->assertEquals(1, $feedback->getId());
+    }
+
+    /**
+     * @expectedException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @expectedExceptionMessage Feedback not found
+     */
+    public function testGetFeedbackWithUnexistingFeedback() {
+        $this->manager->getFeedback(2);
+    }
+
     public function getEntityManagerMock() {
         $entityManagerMock = $this
             ->getMockBuilder('Doctrine\ORM\EntityManager')
@@ -43,6 +58,7 @@ class FeedbackManagerTest extends \PHPUnit_Framework_TestCase {
             ->getMockBuilder('Developtech\AgilityBundle\Repository\FeedbackRepository')
             ->disableOriginalConstructor()
             ->setMethods([
+                'find',
                 'findByProject'
             ])
             ->getMock()
@@ -52,7 +68,30 @@ class FeedbackManagerTest extends \PHPUnit_Framework_TestCase {
             ->method('findByProject')
             ->willReturnCallback([$this, 'getFeedbacksMock'])
         ;
+        $repositoryMock
+            ->expects($this->any())
+            ->method('find')
+            ->willReturnCallback([$this, 'getFeedbackMock'])
+        ;
         return $repositoryMock;
+    }
+
+    public function getFeedbackMock($id) {
+        if($id === 2) {
+            return null;
+        }
+        return
+            (new Feedback())
+            ->setId(1)
+            ->setName('I can\'t see the calendar')
+            ->setSlug('i-can-t-see-the-calendar')
+            ->setDescription('Add brightness to this calendar !')
+            ->setProject(new Project())
+            ->setAuthor(new User())
+            ->setDeveloper(new User())
+            ->setCreatedAt(new \DateTime())
+            ->setUpdatedAt(new \DateTime())
+        ;
     }
 
     public function getFeedbacksMock() {
