@@ -18,6 +18,7 @@ services:
         class: Developtech\AgilityBundle\Manager\FeedbackManager
         arguments:
             - "@doctrine.orm.entity_manager"
+            - "@developtech_agility.slugger"
             - "%developtech_agility.model.feedback.class%"
 
     developtech_agility.slugger:
