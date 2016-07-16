@@ -8,12 +8,14 @@ use Developtech\AgilityBundle\Tests\Mock\Feedback;
 use Developtech\AgilityBundle\Tests\Mock\User;
 use Developtech\AgilityBundle\Tests\Mock\Project;
 
+use Developtech\AgilityBundle\Utils\Slugger;
+
 class FeedbackManagerTest extends \PHPUnit_Framework_TestCase {
     /** @var FeedbackManager **/
     protected $manager;
 
     public function setUp() {
-        $this->manager = new FeedbackManager($this->getEntityManagerMock(), Feature::class);
+        $this->manager = new FeedbackManager($this->getEntityManagerMock(), new Slugger(), Feedback::class);
     }
 
     public function testGetProjectFeedbacks() {
@@ -39,6 +41,22 @@ class FeedbackManagerTest extends \PHPUnit_Framework_TestCase {
         $this->manager->getFeedback(2);
     }
 
+    public function testCreateFeedback() {
+        $feedback = $this->manager->createFeedback(
+            (new Project()),
+            'There is a bug in the kitchen',
+            'The fridge is hotter than my computer !',
+            (new User())
+        );
+        $this->assertInstanceOf(Feedback::class, $feedback);
+        $this->assertInstanceOf(Project::class, $feedback->getProject());
+        $this->assertEquals('There is a bug in the kitchen', $feedback->getName());
+        $this->assertEquals('there-is-a-bug-in-the-kitchen', $feedback->getSlug());
+        $this->assertEquals('The fridge is hotter than my computer !', $feedback->getDescription());
+        $this->assertInstanceOf(User::class, $feedback->getAuthor());
+        $this->assertEquals(Feedback::STATUS_OPEN, $feedback->getStatus());
+    }
+
     public function getEntityManagerMock() {
         $entityManagerMock = $this
             ->getMockBuilder('Doctrine\ORM\EntityManager')
@@ -49,6 +67,16 @@ class FeedbackManagerTest extends \PHPUnit_Framework_TestCase {
             ->expects($this->any())
             ->method('getRepository')
             ->willReturnCallback([$this, 'getRepositoryMock'])
+        ;
+        $entityManagerMock
+            ->expects($this->any())
+            ->method('persist')
+            ->willReturn(true)
+        ;
+        $entityManagerMock
+            ->expects($this->any())
+            ->method('flush')
+            ->willReturn(true)
         ;
         return $entityManagerMock;
     }
