@@ -48,3 +48,4 @@ $feature = $this->get('developtech_agility.feature_manager')->createProductOwner
     80,
     $responsible // must be instance of UserInterface
 );
+```
