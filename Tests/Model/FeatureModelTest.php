@@ -11,6 +11,7 @@ class FeatureModelTest extends \PHPUnit_Framework_TestCase {
         $feature =
             (new Feature())
             ->setId(1)
+            ->setType('user')
             ->setName('Calendar')
             ->setSlug('calendar')
             ->setDescription('Calendar of all the events')
@@ -23,6 +24,7 @@ class FeatureModelTest extends \PHPUnit_Framework_TestCase {
             ->setUpdatedAt(new \DateTime())
         ;
         $this->assertEquals(1, $feature->getId());
+        $this->assertEquals('user', $feature->getType());
         $this->assertEquals('Calendar', $feature->getName());
         $this->assertEquals('calendar', $feature->getSlug());
         $this->assertEquals('Calendar of all the events', $feature->getDescription());
