@@ -1,4 +1,4 @@
-## [Unreleased]
+## [0.2.0] - 2016-07-17
 ### Added
 * Feedback model
 * Project feedbacks list service
