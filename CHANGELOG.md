@@ -1,3 +1,7 @@
+## [Unreleased]
+### Added
+* Get feedbacks by author service
+
 ## [0.2.0] - 2016-07-17
 ### Added
 * Feedback model

@@ -41,6 +41,21 @@ class FeedbackManager {
     }
 
     /**
+    * @param ProjectModel $project
+    * @param UserInterface $author
+    * @param array $orderBy
+    * @param integer $limit
+    * @param integer $offset
+    * @return array
+    */
+    public function getProjectFeedbacksByAuthor(ProjectModel $project, UserInterface $author, $orderBy = null, $limit = null, $offset = null) {
+        return $this->em->getRepository($this->feedbackClass)->findBy([
+            'project' => $project,
+            'author' => $author
+        ], $orderBy, $limit, $offset);
+    }
+
+    /**
      * @param integer $id
      * @return FeedbackModel
      */

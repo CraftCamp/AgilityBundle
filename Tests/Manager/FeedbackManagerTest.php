@@ -26,6 +26,16 @@ class FeedbackManagerTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(2, $feedbacks[1]->getId());
     }
 
+    public function testGetProjectFeedbacksByAuthor() {
+        $feedbacks = $this->manager->getProjectFeedbacksByAuthor(new Project(), new User('Hagrid'));
+
+        $this->assertCount(2, $feedbacks);
+        $this->assertInstanceOf(Feedback::class, $feedbacks[0]);
+        $this->assertEquals(2, $feedbacks[1]->getId());
+        $this->assertEquals('Hagrid', $feedbacks[0]->getAuthor()->getUsername());
+        $this->assertEquals('Hagrid', $feedbacks[1]->getAuthor()->getUsername());
+    }
+
     public function testGetFeedback() {
         $feedback = $this->manager->getFeedback(1);
 
@@ -87,6 +97,7 @@ class FeedbackManagerTest extends \PHPUnit_Framework_TestCase {
             ->disableOriginalConstructor()
             ->setMethods([
                 'find',
+                'findBy',
                 'findByProject'
             ])
             ->getMock()
@@ -95,6 +106,11 @@ class FeedbackManagerTest extends \PHPUnit_Framework_TestCase {
             ->expects($this->any())
             ->method('findByProject')
             ->willReturnCallback([$this, 'getFeedbacksMock'])
+        ;
+        $repositoryMock
+            ->expects($this->any())
+            ->method('findBy')
+            ->willReturnCallback([$this, 'getFeedbacksWithAuthorMock'])
         ;
         $repositoryMock
             ->expects($this->any())
@@ -141,6 +157,31 @@ class FeedbackManagerTest extends \PHPUnit_Framework_TestCase {
             ->setDescription('This calendar blew my eyes away !')
             ->setProject(new Project())
             ->setAuthor(new User())
+            ->setDeveloper(new User())
+            ->setCreatedAt(new \DateTime())
+            ->setUpdatedAt(new \DateTime()),
+        ];
+    }
+
+    public function getFeedbacksWithAuthorMock() {
+        return [
+            (new Feedback())
+            ->setId(1)
+            ->setName('I can\'t see the calendar')
+            ->setSlug('i-can-t-see-the-calendar')
+            ->setDescription('Add brightness to this calendar !')
+            ->setProject(new Project())
+            ->setAuthor(new User('Hagrid'))
+            ->setDeveloper(new User())
+            ->setCreatedAt(new \DateTime())
+            ->setUpdatedAt(new \DateTime()),
+            (new Feedback())
+            ->setId(2)
+            ->setName('The calendar is not shiny enough')
+            ->setSlug('the-calendar-is-not-shiny-enough')
+            ->setDescription('This calendar blew my eyes away !')
+            ->setProject(new Project())
+            ->setAuthor(new User('Hagrid'))
             ->setDeveloper(new User())
             ->setCreatedAt(new \DateTime())
             ->setUpdatedAt(new \DateTime()),

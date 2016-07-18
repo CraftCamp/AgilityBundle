@@ -5,15 +5,40 @@ Services
 --------
 
 * [Get project feedbacks](#get-project-feedbacks)
+* [Get project feedbacks by author](#get-project-feedbacks-by-author)
 * [Get feedback](#get-feedback)
 * [Create feedback](#create-feedback)
 
-**Get project features** <a name="get-project-feedbacks"></a>
+**Get project feedacks** <a name="get-project-feedbacks"></a>
 
 This service returns all the feedbacks for a given project.
 
 ```php
 $feedbacks = $this->get('developtech_agility.feedback_manager')->getProjectFeedbacks($project);
+```
+
+**Get project feedbacks by author** <a name="get-project-feedbacks-by-author"></a>
+
+This service returns all the feedbacks for a given project created bythe given author.
+
+It is also possible to use order by statements or paginate the results.
+
+The arguments are :
+
+* The project object
+* The author. It must be an User object
+* The order by array, the same used with the Doctrine ```findBy``` method
+* The limit
+* THe offset
+
+```php
+$feedbacks = $this->get('developtech_agility.feedback_manager')->getProjectFeedbacksByAuthor(
+    $project,
+    $author,
+    [], // order by
+    10, // limit
+    50 // offset
+);
 ```
 
 **Get feature** <a name="get-feature"></a>
