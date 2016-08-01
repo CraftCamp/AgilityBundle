@@ -2,51 +2,25 @@
 
 namespace Developtech\AgilityBundle\Model;
 
-use Doctrine\ORM\Mapping as ORM;
-
-/**
- * Project
- *
- * @ORM\Entity(repositoryClass="Developtech\AgilityBundle\Repository\FeatureRepository")
- * @ORM\HasLifecycleCallbacks()
- */
 abstract class FeatureModel {
-    /**
-     * @var integer
-     *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     * @ORM\Column(type="integer")
-     */
-    protected $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=15)
-     */
+    /** @var string */
     protected $type;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255)
-     */
+    /** @var string */
     protected $name;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255)
-     */
+    /** @var string */
     protected $slug;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    /** @var string*/
     protected $description;
+    /** @var integer */
+    protected $productOwnerValue;
+    /** @var integer*/
+    protected $userValue;
+    /** @var \DateTime*/
+    protected $createdAt;
+    /** @var \DateTime */
+    protected $updatedAt;
+    /** @var integer */
+    protected $status;
 
     /**
      * @var ProjectModel
@@ -54,41 +28,6 @@ abstract class FeatureModel {
      * This field must be mapped by the end-user
      */
     protected $project;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    protected $productOwnerValue;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    protected $userValue;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(type="datetime")
-     */
-    protected $createdAt;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(type="datetime")
-     */
-    protected $updatedAt;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(type="integer")
-     */
-    protected $status;
 
     /**
      * @var object
@@ -104,37 +43,6 @@ abstract class FeatureModel {
     const STATUS_IN_PROGRESS = 4;
     const STATUS_TO_VALIDATE = 5;
     const STATUS_TO_DEPLOY = 6;
-
-    /**
-     * @ORM\PrePersist()
-     */
-    public function prePersist() {
-        $this->createdAt = $this->updatedAt = new \DateTime();
-    }
-
-    /**
-     * @ORM\PreUpdate()
-     */
-    public function preUpdate() {
-        $this->updatedAt = new \DateTime();
-    }
-
-    /**
-     * @param integer $id
-     * @return FeatureModel
-     */
-    public function setId($id) {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
-     * @return integer
-     */
-    public function getId() {
-        return $this->id;
-    }
 
     /**
      * @param string $type

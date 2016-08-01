@@ -8,56 +8,21 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Project
- *
- * @ORM\Entity(repositoryClass="Developtech\AgilityBundle\Repository\ProjectRepository")
- * @ORM\HasLifecycleCallbacks()
  */
 abstract class ProjectModel
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=125, unique=true)
-     */
+    /** @var string */
     protected $name;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="slug", type="string", length=125, unique=true)
-     */
+    /** @var string */
     protected $slug;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="created_at", type="datetime")
-     */
+    /** @var string **/
+    protected $description;
+    /** @var \DateTime */
     protected $createdAt;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="nbBetaTesters", type="integer")
-     */
+    /** @var int */
     protected $nbBetaTesters;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="betaTestStatus", type="string", length=12)
-     */
+    /** @var string */
     protected $betaTestStatus;
-
     /**
      * @var object
      *
@@ -82,33 +47,6 @@ abstract class ProjectModel
     public function __construct() {
         $this->features = new ArrayCollection();
         $this->feedbacks = new ArrayCollection();
-    }
-
-    /**
-     * @param integer $id
-     * @return Project
-     */
-    public function setId($id) {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
-     * @ORM\PrePersist()
-     */
-    public function prePersist() {
-        $this->createdAt = new \DateTime();
-    }
-
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**
@@ -160,6 +98,23 @@ abstract class ProjectModel
     }
 
     /**
+     * @param string $description
+     * @return ProjectModel
+     */
+    public function setDescription($description) {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription() {
+        return $this->description;
+    }
+
+    /**
      * Set createdAt
      *
      * @param \DateTime $createdAt
@@ -181,6 +136,30 @@ abstract class ProjectModel
     public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return ProjectModel
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 
     /**
