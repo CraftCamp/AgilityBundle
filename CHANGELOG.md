@@ -1,6 +1,7 @@
 ## [Unreleased]
 ### Added
 * Get feedbacks by author service
+* Count feedbacks per status
 
 ## [0.2.0] - 2016-07-17
 ### Added
