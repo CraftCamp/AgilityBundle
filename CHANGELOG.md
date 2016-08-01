@@ -3,6 +3,9 @@
 * Get feedbacks by author service
 * Count feedbacks per status
 
+### Changed
+* Use dynamic mapping to make the bundle setup easier
+
 ## [0.2.0] - 2016-07-17
 ### Added
 * Feedback model
