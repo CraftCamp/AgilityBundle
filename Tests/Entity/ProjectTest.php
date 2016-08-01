@@ -2,12 +2,12 @@
 
 namespace Developtech\AgilityBundle\Tests\Model;
 
-use Developtech\AgilityBundle\Tests\Mock\Project;
-use Developtech\AgilityBundle\Tests\Mock\Feature;
+use Developtech\AgilityBundle\Entity\Feedback;
+use Developtech\AgilityBundle\Entity\Feature;
+use Developtech\AgilityBundle\Entity\Project;
 use Developtech\AgilityBundle\Tests\Mock\User;
-use Developtech\AgilityBundle\Tests\Mock\Feedback;
 
-class ProjectModelTest extends \PHPUnit_Framework_TestCase {
+class ProjectTest extends \PHPUnit_Framework_TestCase {
     public function testModel() {
         $feedback = new Feedback();
         $feature = new Feature();
