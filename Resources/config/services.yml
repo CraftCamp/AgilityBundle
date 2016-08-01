@@ -5,21 +5,25 @@ services:
         arguments:
             - "@doctrine.orm.entity_manager"
             - "@developtech_agility.slugger"
-            - "%developtech_agility.model.project.class%"
 
     developtech_agility.feature_manager:
         class: Developtech\AgilityBundle\Manager\FeatureManager
         arguments:
             - "@doctrine.orm.entity_manager"
             - "@developtech_agility.slugger"
-            - "%developtech_agility.model.feature.class%"
 
     developtech_agility.feedback_manager:
         class: Developtech\AgilityBundle\Manager\FeedbackManager
         arguments:
             - "@doctrine.orm.entity_manager"
             - "@developtech_agility.slugger"
-            - "%developtech_agility.model.feedback.class%"
 
     developtech_agility.slugger:
         class: Developtech\AgilityBundle\Utils\Slugger
+
+    devleoptech_agility.doctrine_mapping.listener:
+        class: Developtech\AgilityBundle\EventSubscriber\DynamicRelationSubscriber
+        arguments:
+            - "%developtech_agility.user_class%"
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
