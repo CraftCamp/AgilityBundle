@@ -87,4 +87,13 @@ class FeedbackManager {
         $this->em->flush();
         return $feedback;
     }
+
+    /**
+     * @param ProjectModel $project
+     * @param integer $status
+     * @return integer
+     */
+    public function countFeedbacksPerStatus(ProjectModel $project, $status) {
+        return $this->em->getRepository($this->feedbackClass)->countPerStatus($project, $status);
+    }
 }
