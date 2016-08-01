@@ -4,7 +4,7 @@ namespace Developtech\AgilityBundle\Tests\Manager;
 
 use Developtech\AgilityBundle\Manager\ProjectManager;
 
-use Developtech\AgilityBundle\Tests\Mock\Project;
+use Developtech\AgilityBundle\Entity\Project;
 use Developtech\AgilityBundle\Tests\Mock\User;
 
 use Developtech\AgilityBundle\Utils\Slugger;

@@ -7,6 +7,8 @@ use Doctrine\ORM\EntityManager;
 use Developtech\AgilityBundle\Model\ProjectModel;
 use Developtech\AgilityBundle\Model\FeatureModel;
 
+use Developtech\AgilityBundle\Entity\Feature;
+
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use Developtech\AgilityBundle\Utils\Slugger;
@@ -16,17 +18,14 @@ class FeatureManager {
     protected $em;
     /** @var Slugger **/
     protected $slugger;
-    /** @var string **/
-    protected $featureClass;
 
     /**
      * @param EntityManager $em
-     * @param string $featureClass
+     * @param Slugger $slugger
      */
-    public function __construct(EntityManager $em, Slugger $slugger, $featureClass) {
+    public function __construct(EntityManager $em, Slugger $slugger) {
         $this->em = $em;
         $this->slugger = $slugger;
-        $this->featureClass = $featureClass;
     }
 
     /**
@@ -34,7 +33,7 @@ class FeatureManager {
      * @return array
      */
     public function getProjectFeatures(ProjectModel $project) {
-        return $this->em->getRepository($this->featureClass)->findByProject($project);
+        return $this->em->getRepository(Feature::class)->findByProject($project);
     }
 
     /**
@@ -42,7 +41,7 @@ class FeatureManager {
      * @return FeatureModel
      */
     public function getFeature($id) {
-        if(($feature = $this->em->getRepository($this->featureClass)->find($id)) === null) {
+        if(($feature = $this->em->getRepository(Feature::class)->find($id)) === null) {
             throw new NotFoundHttpException('Feature not found');
         }
         return $feature;
@@ -59,7 +58,7 @@ class FeatureManager {
      */
     public function createProductOwnerFeature(ProjectModel $project, $name, $description, $status, $productOwnerValue = null, $developer = null) {
         $feature =
-            (new $this->featureClass())
+            (new Feature())
             ->setProject($project)
             ->setType('product-owner')
             ->setName($name)
