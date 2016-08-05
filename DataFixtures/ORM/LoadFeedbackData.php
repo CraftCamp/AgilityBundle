@@ -2,14 +2,10 @@
 namespace Developtech\AgilityBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\Common\DataFixtures\{
-    AbstractFixture,
-    OrderedFixtureInterface
-};
-use Symfony\Component\DependencyInjection\{
-    ContainerInterface,
-    ContainerAwareInterface
-};
+use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Developtech\AgilityBundle\Entity\Feedback;
 
 class LoadFeedbackData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface {
