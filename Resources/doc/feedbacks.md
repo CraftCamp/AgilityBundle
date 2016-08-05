@@ -8,6 +8,7 @@ Services
 * [Get project feedbacks by author](#get-project-feedbacks-by-author)
 * [Get feedback](#get-feedback)
 * [Create feedback](#create-feedback)
+* [Count feedbacks per status](#count-feedbacks-per-status)
 
 **Get project feedacks** <a name="get-project-feedbacks"></a>
 
@@ -69,4 +70,18 @@ $feedback = $this->get('developtech_agility.feedback_manager')->createFeedback(
     'The fridge is hotter than my computer !',
     $author // must be instance of UserInterface
 );
+```
+
+**Count feedback per status** <a name="count-feedback-per-status"></a>
+
+This service is meant to count the number of feedbacks for a given status.
+
+The first parameter is the project object containing the feedbacks.
+
+The second parameter is the feedback status you want to count. You should use the constants of the Feedback class for this purpose.
+
+This method returns the counted feedbacks with the given status.
+
+```php
+$nbOpenedFeedbacks = $this->get('developtech_agility.feedback_manager')->countFeedbacksPerStatus($project, Feedback::STATUS_OPEN);
 ```

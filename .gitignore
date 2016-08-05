@@ -1,0 +1,6 @@
+vendor/
+Tests/App/cache
+!Tests/App/cache/.gitkeep
+Tests/App/logs
+!Tests/App/logs/.gitkeep
+composer.lock

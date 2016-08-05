@@ -17,23 +17,21 @@ class ProjectManager {
     protected $em;
     /** @var Developtech\AgilityBundle\Utils\Slugger **/
     protected $slugger;
-    /** @var string **/
-    protected $projectClass;
 
     /**
      * @param Doctrine\ORM\EntityManager $em
+     * @param Slugger $slugger
      */
-    public function __construct(EntityManager $em, Slugger $slugger, $projectClass) {
+    public function __construct(EntityManager $em, Slugger $slugger) {
         $this->em = $em;
         $this->slugger = $slugger;
-        $this->projectClass = $projectClass;
     }
 
     /**
      * @return array
      */
     public function getProjects() {
-        return $this->em->getRepository($this->projectClass)->findAll();
+        return $this->em->getRepository(Project::class)->findAll();
     }
 
     /**
@@ -42,7 +40,7 @@ class ProjectManager {
      * @return ProjectModel
      */
     public function getProject($slug) {
-        $project = $this->em->getRepository($this->projectClass)->findOneBySlug($slug);
+        $project = $this->em->getRepository(Project::class)->findOneBySlug($slug);
         if($project === null) {
             throw new NotFoundHttpException('Project not found');
         }
@@ -56,7 +54,7 @@ class ProjectManager {
      */
     public function createProject($name, UserInterface $productOwner) {
         $project =
-            (new $this->projectClass())
+            (new Project())
             ->setName($name)
             ->setSlug($this->slugger->slugify($name))
             ->setProductOwner($productOwner)
@@ -78,7 +76,7 @@ class ProjectManager {
      * @return ProjectModel
      */
     public function editProject($id, $name, $betaTestStatus, $nbBetaTesters, UserInterface $productOwner = null) {
-        if (($project = $this->em->getRepository($this->projectClass)->find($id)) === null) {
+        if (($project = $this->em->getRepository(Project::class)->find($id)) === null) {
             throw new NotFoundHttpException('Project not found');
         }
         $project

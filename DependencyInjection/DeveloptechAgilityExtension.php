@@ -22,9 +22,7 @@ class DeveloptechAgilityExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $container->setParameter('developtech_agility.model.project.class', $config['model']['class']['project']);
-        $container->setParameter('developtech_agility.model.feature.class', $config['model']['class']['feature']);
-        $container->setParameter('developtech_agility.model.feedback.class', $config['model']['class']['feedback']);
+        $container->setParameter('developtech_agility.user_class', $config['user_class']);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');

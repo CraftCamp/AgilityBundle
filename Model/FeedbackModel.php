@@ -2,47 +2,22 @@
 
 namespace Developtech\AgilityBundle\Model;
 
-use Doctrine\ORM\Mapping as ORM;
-
 use Symfony\Component\Security\Core\User\UserInterface;
 
-/**
- * FeedbackModel
- *
- * @ORM\Entity(repositoryClass="Developtech\AgilityBundle\Repository\FeedbackModelRepository")
- * @ORM\HasLifecycleCallbacks()
- */
 class FeedbackModel
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=125)
-     */
+    /** @var string */
     protected $name;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="slug", type="string", length=125)
-     */
+    /** @var string */
     protected $slug;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="string", length=255)
-     */
+    /** @var string */
     protected $description;
+    /** @var int */
+    protected $status;
+    /** @var \DateTime*/
+    protected $createdAt;
+    /** @var \DateTime */
+    protected $updatedAt;
 
     /**
      * @var ProjectModel
@@ -59,32 +34,11 @@ class FeedbackModel
     protected $author;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="status", type="integer")
-     */
-    protected $status;
-
-    /**
      * @var UserInterface
      *
      * This field must be mapped by the end-user
      */
     protected $developer;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="createdAt", type="datetime")
-     */
-    protected $createdAt;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="updatedAt", type="datetime")
-     */
-    protected $updatedAt;
 
     const STATUS_OPEN = 0;
     const STATUS_TO_DO = 1;
@@ -92,40 +46,6 @@ class FeedbackModel
     const STATUS_TO_VALIDATE = 3;
     const STATUS_DONE = 4;
     const STATUS_CLOSED = 5;
-
-    /**
-     * @ORM\PrePersist()
-     */
-    public function prePersist() {
-        $this->createdAt = $this->updatedAt = new \DateTime();
-    }
-
-    /**
-     * @ORM\PreUpdate()
-     */
-    public function preUpdate() {
-        $this->updatedAt = new \DateTime();
-    }
-
-    /**
-     * @param integer $id
-     * @return FeedbackModel
-     */
-    public function setId($id) {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * Set name

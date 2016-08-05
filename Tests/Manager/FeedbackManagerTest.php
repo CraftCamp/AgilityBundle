@@ -4,9 +4,9 @@ namespace Developtech\AgilityBundle\Tests\Manager;
 
 use Developtech\AgilityBundle\Manager\FeedbackManager;
 
-use Developtech\AgilityBundle\Tests\Mock\Feedback;
+use Developtech\AgilityBundle\Entity\Feedback;
 use Developtech\AgilityBundle\Tests\Mock\User;
-use Developtech\AgilityBundle\Tests\Mock\Project;
+use Developtech\AgilityBundle\Entity\Project;
 
 use Developtech\AgilityBundle\Utils\Slugger;
 
@@ -67,6 +67,10 @@ class FeedbackManagerTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(Feedback::STATUS_OPEN, $feedback->getStatus());
     }
 
+    public function testCountFeedbacksPerStatus() {
+        $this->assertEquals(3, $this->manager->countFeedbacksPerStatus((new Project())->setId(1), Feedback::STATUS_OPEN));
+    }
+
     public function getEntityManagerMock() {
         $entityManagerMock = $this
             ->getMockBuilder('Doctrine\ORM\EntityManager')
@@ -98,7 +102,8 @@ class FeedbackManagerTest extends \PHPUnit_Framework_TestCase {
             ->setMethods([
                 'find',
                 'findBy',
-                'findByProject'
+                'findByProject',
+                'countPerStatus'
             ])
             ->getMock()
         ;
@@ -116,6 +121,11 @@ class FeedbackManagerTest extends \PHPUnit_Framework_TestCase {
             ->expects($this->any())
             ->method('find')
             ->willReturnCallback([$this, 'getFeedbackMock'])
+        ;
+        $repositoryMock
+            ->expects($this->any())
+            ->method('countPerStatus')
+            ->willReturn(3)
         ;
         return $repositoryMock;
     }

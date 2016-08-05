@@ -7,6 +7,8 @@ use Doctrine\ORM\EntityManager;
 use Developtech\AgilityBundle\Model\ProjectModel;
 use Developtech\AgilityBundle\Model\FeedbackModel;
 
+use Developtech\AgilityBundle\Entity\Feedback;
+
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use Developtech\AgilityBundle\Utils\Slugger;
@@ -18,18 +20,14 @@ class FeedbackManager {
     protected $em;
     /** @var Slugger **/
     protected $slugger;
-    /** @var string **/
-    protected $feedbackClass;
 
     /**
      * @param EntityManager $em
      * @param Slugger $slugger
-     * @param string $feedbackClass
      */
-    public function __construct(EntityManager $em, Slugger $slugger, $feedbackClass) {
+    public function __construct(EntityManager $em, Slugger $slugger) {
         $this->em = $em;
         $this->slugger = $slugger;
-        $this->feedbackClass = $feedbackClass;
     }
 
     /**
@@ -37,7 +35,7 @@ class FeedbackManager {
      * @return array
      */
     public function getProjectFeedbacks(ProjectModel $project) {
-        return $this->em->getRepository($this->feedbackClass)->findByProject($project);
+        return $this->em->getRepository(Feedback::class)->findByProject($project);
     }
 
     /**
@@ -49,7 +47,7 @@ class FeedbackManager {
     * @return array
     */
     public function getProjectFeedbacksByAuthor(ProjectModel $project, UserInterface $author, $orderBy = null, $limit = null, $offset = null) {
-        return $this->em->getRepository($this->feedbackClass)->findBy([
+        return $this->em->getRepository(Feedback::class)->findBy([
             'project' => $project,
             'author' => $author
         ], $orderBy, $limit, $offset);
@@ -60,7 +58,7 @@ class FeedbackManager {
      * @return FeedbackModel
      */
     public function getFeedback($id) {
-        if(($feedback = $this->em->getRepository($this->feedbackClass)->find($id)) === null) {
+        if(($feedback = $this->em->getRepository(Feedback::class)->find($id)) === null) {
             throw new NotFoundHttpException('Feedback not found');
         }
         return $feedback;
@@ -75,7 +73,7 @@ class FeedbackManager {
      */
     public function createFeedback(ProjectModel $project, $name, $description, UserInterface $author) {
         $feedback =
-            (new $this->feedbackClass())
+            (new Feedback())
             ->setName($name)
             ->setSlug($this->slugger->slugify($name))
             ->setDescription($description)
@@ -86,5 +84,14 @@ class FeedbackManager {
         $this->em->persist($feedback);
         $this->em->flush();
         return $feedback;
+    }
+
+    /**
+     * @param ProjectModel $project
+     * @param integer $status
+     * @return integer
+     */
+    public function countFeedbacksPerStatus(ProjectModel $project, $status) {
+        return $this->em->getRepository(Feedback::class)->countPerStatus($project, $status);
     }
 }

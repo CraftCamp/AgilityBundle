@@ -21,17 +21,7 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('developtech_agility');
         $rootNode
             ->children()
-                ->arrayNode('model')->isRequired()
-                    ->children()
-                        ->arrayNode('class')->isRequired()
-                            ->children()
-                                ->scalarNode('project')->isRequired()->end()
-                                ->scalarNode('feature')->isRequired()->end()
-                                ->scalarNode('feedback')->isRequired()->end()
-                            ->end()
-                        ->end()
-                    ->end()
-                ->end()
+                ->scalarNode('user_class')->isRequired()->end()
             ->end()
         ;
         return $treeBuilder;

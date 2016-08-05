@@ -4,8 +4,26 @@ namespace Developtech\AgilityBundle\Tests\Mock;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity()
+ */
 class User implements UserInterface {
-    /** @var string **/
+    /**
+     * @var integer
+     *
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
+     **/
+    protected $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=65)
+     **/
     protected $username;
     /** @var string **/
     protected $password;
@@ -25,6 +43,13 @@ class User implements UserInterface {
         $this->password = $password;
         $this->salt = $salt;
         $this->roles = $roles;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId() {
+        return $this->id;
     }
 
     /**
