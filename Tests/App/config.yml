@@ -1,0 +1,63 @@
+framework:
+    #esi:             ~
+    #translator:      { fallbacks: ["%locale%"] }
+    secret:          "secret"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }
+    #serializer:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+    default_locale:  "fr"
+    trusted_hosts:   ~
+    trusted_proxies: ~
+    session:
+        # http://symfony.com/doc/current/reference/configuration/framework.html#handler-id
+        handler_id:  session.handler.native_file
+        save_path:   "%kernel.root_dir%/../var/sessions/%kernel.environment%"
+        storage_id: session.storage.mock_file
+    fragments:       ~
+    http_method_override: true
+    assets: ~
+    test: ~
+    profiler:
+        collect: false
+
+web_profiler:
+    toolbar: false
+    intercept_redirects: false
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        default_connection: default
+        connections:
+            default:
+                driver:   pdo_sqlite
+                path:     "%kernel.cache_dir%/test.db"
+
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        entity_managers:
+          default:
+            mappings:
+                DeveloptechAgilityBundle:
+                    type: annotation
+                mock:
+                    type: annotation
+                    prefix: Developtech\AgilityBundle\Tests\Mock\
+                    dir: "%kernel.root_dir%/../Mock/"
+                    is_bundle: false
+
+web_profiler:
+    toolbar: false
+    intercept_redirects: false
+
+liip_functional_test:
+    cache_sqlite_db: true
+
+developtech_agility:
+    user_class: Developtech\AgilityBundle\Tests\Mock\User
