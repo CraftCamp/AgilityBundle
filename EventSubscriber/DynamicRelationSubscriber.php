@@ -6,7 +6,6 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Doctrine\ORM\Mapping\UnderscoreNamingStrategy;
 
 class DynamicRelationSubscriber implements EventSubscriber
 {
@@ -42,25 +41,18 @@ class DynamicRelationSubscriber implements EventSubscriber
         // the $metadata is the whole mapping info for this class
         $metadata = $eventArgs->getClassMetadata();
 
-        $namingStrategy = $eventArgs
-            ->getEntityManager()
-            ->getConfiguration()
-            ->getNamingStrategy()
-        ;
-
         switch($metadata->getName()) {
-            case self::MODEL_PROJECT: return $this->mapProject($metadata, $namingStrategy);
-            case self::MODEL_FEATURE: return $this->mapFeature($metadata, $namingStrategy);
-            case self::MODEL_FEEDBACK: return $this->mapFeedback($metadata, $namingStrategy);
+            case self::MODEL_PROJECT: return $this->mapProject($metadata);
+            case self::MODEL_FEATURE: return $this->mapFeature($metadata);
+            case self::MODEL_FEEDBACK: return $this->mapFeedback($metadata);
             default: return;
         }
     }
 
     /**
      * @param CLassMetadata $metadata
-     * @param UnderscoreNamingStrategy $namingStrategy
      */
-    public function mapProject(ClassMetadata $metadata, UnderscoreNamingStrategy $namingStrategy) {
+    public function mapProject(ClassMetadata $metadata) {
         $metadata->mapManyToOne(array(
             'targetEntity'  => $this->userClass,
             'fieldName'     => 'productOwner',
@@ -73,9 +65,8 @@ class DynamicRelationSubscriber implements EventSubscriber
 
     /**
      * @param CLassMetadata $metadata
-     * @param UnderscoreNamingStrategy $namingStrategy
      */
-    public function mapFeature(ClassMetadata $metadata, UnderscoreNamingStrategy $namingStrategy) {
+    public function mapFeature(ClassMetadata $metadata) {
         $metadata->mapManyToOne(array(
             'targetEntity'  => $this->userClass,
             'fieldName'     => 'developer',
@@ -88,9 +79,8 @@ class DynamicRelationSubscriber implements EventSubscriber
 
     /**
      * @param CLassMetadata $metadata
-     * @param UnderscoreNamingStrategy $namingStrategy
      */
-    public function mapFeedback(ClassMetadata $metadata, UnderscoreNamingStrategy $namingStrategy) {
+    public function mapFeedback(ClassMetadata $metadata) {
         $metadata->mapManyToOne(array(
             'targetEntity'  => $this->userClass,
             'fieldName'     => 'author',
