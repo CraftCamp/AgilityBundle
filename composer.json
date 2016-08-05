@@ -17,14 +17,17 @@
     },
     "require": {
         "php": ">=5.5",
-        "symfony/symfony": "~2.3|~3.0",
+        "symfony/framework-bundle": "~2.3|~3.0",
+        "symfony/twig-bundle": "~2.3|~3.0",
+        "symfony/yaml": "~2.3|~3.0",
+        "symfony/security-bundle": "~2.3|~3.0",
+        "symfony/debug-bundle": "~2.3|~3.0",
+        "symfony/web-profiler-bundle": "~2.3|~3.0",
         "sensio/distribution-bundle": "^5.0",
         "sensio/generator-bundle": "~2.3|~3.0",
-        "symfony/framework-bundle": "~2.3|~3.0",
-        "symfony/dependency-injection": "~2.3|~3.0",
-        "sensio/framework-extra-bundle": "~2.3|~3.0",
-        "symfony/security-bundle": "~2.3|~3.0",
-        "symfony/yaml": "~2.3|~3.0"
+        "symfony/form": "~2.3|~3.0",
+        "symfony/validator": "~2.3|~3.0",
+        "sensio/framework-extra-bundle": "~2.3|~3.0"
     },
     "require-dev": {
         "doctrine/orm": "~2.3",
