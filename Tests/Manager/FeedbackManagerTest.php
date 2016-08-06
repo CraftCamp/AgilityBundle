@@ -142,7 +142,7 @@ class FeedbackManagerTest extends \PHPUnit_Framework_TestCase {
             ->setDescription('Add brightness to this calendar !')
             ->setProject(new Project())
             ->setAuthor(new User())
-            ->setDeveloper(new User())
+            ->setResponsible(new User())
             ->setCreatedAt(new \DateTime())
             ->setUpdatedAt(new \DateTime())
         ;
@@ -157,7 +157,7 @@ class FeedbackManagerTest extends \PHPUnit_Framework_TestCase {
             ->setDescription('Add brightness to this calendar !')
             ->setProject(new Project())
             ->setAuthor(new User())
-            ->setDeveloper(new User())
+            ->setResponsible(new User())
             ->setCreatedAt(new \DateTime())
             ->setUpdatedAt(new \DateTime()),
             (new Feedback())
@@ -167,7 +167,7 @@ class FeedbackManagerTest extends \PHPUnit_Framework_TestCase {
             ->setDescription('This calendar blew my eyes away !')
             ->setProject(new Project())
             ->setAuthor(new User())
-            ->setDeveloper(new User())
+            ->setResponsible(new User())
             ->setCreatedAt(new \DateTime())
             ->setUpdatedAt(new \DateTime()),
         ];
@@ -182,7 +182,7 @@ class FeedbackManagerTest extends \PHPUnit_Framework_TestCase {
             ->setDescription('Add brightness to this calendar !')
             ->setProject(new Project())
             ->setAuthor(new User('Hagrid'))
-            ->setDeveloper(new User())
+            ->setResponsible(new User())
             ->setCreatedAt(new \DateTime())
             ->setUpdatedAt(new \DateTime()),
             (new Feedback())
@@ -192,7 +192,7 @@ class FeedbackManagerTest extends \PHPUnit_Framework_TestCase {
             ->setDescription('This calendar blew my eyes away !')
             ->setProject(new Project())
             ->setAuthor(new User('Hagrid'))
-            ->setDeveloper(new User())
+            ->setResponsible(new User())
             ->setCreatedAt(new \DateTime())
             ->setUpdatedAt(new \DateTime()),
         ];
