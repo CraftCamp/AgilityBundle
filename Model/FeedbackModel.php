@@ -18,26 +18,11 @@ class FeedbackModel
     protected $createdAt;
     /** @var \DateTime */
     protected $updatedAt;
-
-    /**
-     * @var ProjectModel
-     *
-     * This field must be mapped by the end-user to the Project extended class
-     */
+    /** @var ProjectModel */
     protected $project;
-
-    /**
-     * @var UserInterface
-     *
-     * This field must be mapped by the end-user
-     */
+    /** @var UserInterface */
     protected $author;
-
-    /**
-     * @var UserInterface
-     *
-     * This field must be mapped by the end-user
-     */
+    /** @var UserInterface */
     protected $developer;
 
     const STATUS_OPEN = 0;

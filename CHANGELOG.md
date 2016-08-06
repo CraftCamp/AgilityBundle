@@ -2,6 +2,7 @@
 ### Added
 * Get feedbacks by author service
 * Count feedbacks per status
+* Model fields documentation
 
 ### Changed
 * Use dynamic mapping to make the bundle setup easier

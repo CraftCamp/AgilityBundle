@@ -23,25 +23,11 @@ abstract class ProjectModel
     protected $nbBetaTesters;
     /** @var string */
     protected $betaTestStatus;
-    /**
-     * @var object
-     *
-     * The mapping to the user class must be done by the end-user
-     */
+    /** @var object */
     protected $productOwner;
-
-    /**
-     * @var ArrayCollection
-     *
-     * The mapping to the features can be done by the end-user but is optionnal
-     */
+    /** @var ArrayCollection */
     protected $features;
-
-    /**
-     * @var ArrayCollection
-     *
-     * The mapping to the feedbacks can be done by the end-user but is optionnal
-     */
+    /** @var ArrayCollection */
     protected $feedbacks;
 
     public function __construct() {

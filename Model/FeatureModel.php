@@ -21,19 +21,9 @@ abstract class FeatureModel {
     protected $updatedAt;
     /** @var integer */
     protected $status;
-
-    /**
-     * @var ProjectModel
-     *
-     * This field must be mapped by the end-user
-     */
+    /** @var ProjectModel */
     protected $project;
-
-    /**
-     * @var object
-     *
-     * This field must be mapped by the end-user
-     */
+    /** @var object */
     protected $developer;
 
     const STATUS_TO_SPECIFY = 0;
