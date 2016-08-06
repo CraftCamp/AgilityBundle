@@ -11,12 +11,15 @@ The developer field represents the feedback responsible.
 
 The author field is the User who created the feedback.
 
+The type is used to recognize if the object is a Feature or a Feedback.
+
 Model
 -----
 
 The Feature object has the following fields :
 
 * id (integer)
+* type (string)
 * name (string)
 * slug (string)
 * description (string)
@@ -26,6 +29,16 @@ The Feature object has the following fields :
 * project (Developtech\AgilityBundle\Entity\Project)
 * author (UserInterface)
 * developer (UserInterface)
+
+### Constants
+
+#### status
+STATUS_OPEN = 0;
+STATUS_TO_DO = 1;
+STATUS_IN_PROGRESS = 2;
+STATUS_TO_VALIDATE = 3;
+STATUS_DONE = 4;
+STATUS_CLOSED = 5;
 
 Services
 --------

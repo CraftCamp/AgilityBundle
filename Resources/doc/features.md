@@ -11,7 +11,9 @@ In later versions, the user value will be handled with Vote objects, and the use
 
 In later versions also, the team will be able to estimate the complexity of the feature development. It will allow priorization by a ratio between value and complexity.
 
-The developer field represents the feature responsible
+The type is used to recognize if the object is a Feature or a Feedback.
+
+The featureType field is used to know if the feature was created by the product owner or suggested by the users.
 
 Model
 -----
@@ -19,6 +21,8 @@ Model
 The Feature object has the following fields :
 
 * id (integer)
+* type (string)
+* featureType (string)
 * name (string)
 * slug (string)
 * description (string)
@@ -28,7 +32,22 @@ The Feature object has the following fields :
 * updatedAt (DateTime)
 * status (integer)
 * project (Developtech\AgilityBundle\Entity\Project)
-* developer (UserInterface)
+* responsible (UserInterface)
+
+### Constants
+
+#### featureType
+FEATURE_TYPE_PRODUCT_OWNER = 'product-owner';
+FEATURE_TYPE_USER = 'user';
+
+#### status
+STATUS_TO_SPECIFY = 0;
+STATUS_TO_VALORIZE = 1;
+STATUS_READY = 2;
+STATUS_TO_DO = 3;
+STATUS_IN_PROGRESS = 4;
+STATUS_TO_VALIDATE = 5;
+STATUS_TO_DEPLOY = 6;
 
 Services
 --------
