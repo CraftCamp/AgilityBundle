@@ -5,6 +5,7 @@ namespace Developtech\AgilityBundle\Model;
 use Doctrine\ORM\Mapping as ORM;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Project
@@ -23,7 +24,7 @@ abstract class ProjectModel
     protected $nbBetaTesters;
     /** @var string */
     protected $betaTestStatus;
-    /** @var object */
+    /** @var UserInterface */
     protected $productOwner;
     /** @var ArrayCollection */
     protected $features;
@@ -199,11 +200,11 @@ abstract class ProjectModel
     /**
      * Set productOwner
      *
-     * @param object $productOwner
+     * @param UserInterface $productOwner
      *
      * @return ProjectModel
      */
-    public function setProductOwner($productOwner)
+    public function setProductOwner(UserInterface $productOwner)
     {
         $this->productOwner = $productOwner;
 
@@ -213,7 +214,7 @@ abstract class ProjectModel
     /**
      * Get productOwner
      *
-     * @return object
+     * @return UserInterface
      */
     public function getProductOwner()
     {
@@ -221,30 +222,30 @@ abstract class ProjectModel
     }
 
     /**
-     * @param FeatureModel $feature
+     * @param JobModel $feature
      * @return ProjectModel
      */
-    public function addFeature(FeatureModel $feature) {
+    public function addFeature(JobModel $feature) {
         $this->features->add($feature);
 
         return $this;
     }
 
     /**
-     * @param FeatureModel $feature
+     * @param JobModel $feature
      * @return ProjectModel
      */
-    public function removeFeature(FeatureModel $feature) {
+    public function removeFeature(JobModel $feature) {
         $this->features->removeElement($feature);
 
         return $this;
     }
 
     /**
-     * @param FeatureModel $feature
+     * @param JobModel $feature
      * @return boolean
      */
-    public function hasFeature(FeatureModel $feature) {
+    public function hasFeature(JobModel $feature) {
         return $this->features->contains($feature);
     }
 
@@ -256,30 +257,30 @@ abstract class ProjectModel
     }
 
     /**
-     * @param FeedbackModel $feedback
+     * @param JobModel $feedback
      * @return ProjectModel
      */
-    public function addFeedback(FeedbackModel $feedback) {
+    public function addFeedback(JobModel $feedback) {
         $this->feedbacks->add($feedback);
 
         return $this;
     }
 
     /**
-     * @param FeedbackModel $feedback
+     * @param JobModel $feedback
      * @return ProjectModel
      */
-    public function removeFeedback(FeedbackModel $feedback) {
+    public function removeFeedback(JobModel $feedback) {
         $this->feedbacks->removeElement($feedback);
 
         return $this;
     }
 
     /**
-     * @param FeedbackModel $feedback
+     * @param JobModel $feedback
      * @return boolean
      */
-    public function hasFeedback(FeedbackModel $feedback) {
+    public function hasFeedback(JobModel $feedback) {
         return $this->feedbacks->contains($feedback);
     }
 
