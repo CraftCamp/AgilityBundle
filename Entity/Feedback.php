@@ -4,7 +4,7 @@ namespace Developtech\AgilityBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-use Developtech\AgilityBundle\Model\FeedbackModel;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Feedback
@@ -13,82 +13,45 @@ use Developtech\AgilityBundle\Model\FeedbackModel;
  * @ORM\Table(name="developtech_agility__feedbacks")
  * @ORM\HasLifecycleCallbacks()
  */
-class Feedback extends FeedbackModel {
-    /**
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
+class Feedback extends Job {
+      /** @var UserInterface */
+      protected $author;
 
-    /**
-     * @ORM\Column(name="name", type="string", length=125)
-     */
-    protected $name;
+      const STATUS_OPEN = 0;
+      const STATUS_TO_DO = 1;
+      const STATUS_IN_PROGRESS = 2;
+      const STATUS_TO_VALIDATE = 3;
+      const STATUS_DONE = 4;
+      const STATUS_CLOSED = 5;
 
-    /**
-     * @ORM\Column(name="slug", type="string", length=125)
-     */
-    protected $slug;
+      /**
+       * Set author
+       *
+       * @param UserInterface $author
+       *
+       * @return FeedbackModel
+       */
+      public function setAuthor(UserInterface $author)
+      {
+          $this->author = $author;
 
-    /**
-     * @ORM\Column(name="description", type="string", length=255)
-     */
-    protected $description;
+          return $this;
+      }
 
-    /**
-     * @ORM\Column(name="status", type="integer")
-     */
-    protected $status;
+      /**
+       * Get author
+       *
+       * @return UserInterface
+       */
+      public function getAuthor()
+      {
+          return $this->author;
+      }
 
-    /**
-     * @ORM\Column(name="createdAt", type="datetime")
-     */
-    protected $createdAt;
-
-    /**
-     * @ORM\Column(name="updatedAt", type="datetime")
-     */
-    protected $updatedAt;
-
-    /**
-     * @var Project
-     *
-     * @ORM\ManyToOne(targetEntity="Developtech\AgilityBundle\Entity\Project", inversedBy="feedbacks")
-     */
-    protected $project;
-
-    /**
-     * @ORM\PrePersist()
-     */
-    public function prePersist() {
-        $this->createdAt = $this->updatedAt = new \DateTime();
-    }
-
-    /**
-     * @ORM\PreUpdate()
-     */
-    public function preUpdate() {
-        $this->updatedAt = new \DateTime();
-    }
-
-    /**
-     * @param integer $id
-     * @return FeedbackModel
-     */
-    public function setId($id) {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
+      /**
+       * @return string
+       */
+      public function getType() {
+          return self::TYPE_FEEDBACK;
+      }
 }

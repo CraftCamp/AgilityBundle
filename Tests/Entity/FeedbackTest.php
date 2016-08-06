@@ -17,9 +17,19 @@ class FeedbackTest extends \PHPUnit_Framework_TestCase {
             ->setStatus(Feedback::STATUS_TO_DO)
             ->setProject(new Project())
             ->setAuthor((new User()))
-            ->setDeveloper(new User())
+            ->setResponsible(new User())
             ->setCreatedAt(new \DateTime())
             ->setUpdatedAt(new \DateTime())
         ;
+        $this->assertEquals(1, $feedback->getId());
+        $this->assertEquals(Feedback::TYPE_FEEDBACK, $feedback->getType());
+        $this->assertEquals('Add licensee to your application !', $feedback->getName());
+        $this->assertEquals('add-licensee-to-your-application', $feedback->getSlug());
+        $this->assertEquals(Feedback::STATUS_TO_DO, $feedback->getStatus());
+        $this->assertInstanceOf(Project::class, $feedback->getProject());
+        $this->assertInstanceOf(User::class, $feedback->getAuthor());
+        $this->assertInstanceOf(User::class, $feedback->getResponsible());
+        $this->assertInstanceOf('DateTime', $feedback->getCreatedAt());
+        $this->assertInstanceOf('DateTime', $feedback->getUpdatedAt());
     }
 }

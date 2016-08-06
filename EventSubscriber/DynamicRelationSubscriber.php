@@ -69,7 +69,7 @@ class DynamicRelationSubscriber implements EventSubscriber
     public function mapFeature(ClassMetadata $metadata) {
         $metadata->mapManyToOne(array(
             'targetEntity'  => $this->userClass,
-            'fieldName'     => 'developer',
+            'fieldName'     => 'responsible',
             'cascade'       => array(),
             'joinColumn'    => array(
                 'nullable' => true
@@ -91,7 +91,7 @@ class DynamicRelationSubscriber implements EventSubscriber
         ));
         $metadata->mapManyToOne(array(
             'targetEntity'  => $this->userClass,
-            'fieldName'     => 'developer',
+            'fieldName'     => 'responsible',
             'cascade'       => array(),
             'joinColumn'    => array(
                 'nullable' => true

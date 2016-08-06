@@ -6,6 +6,7 @@
 
 ### Changed
 * Use dynamic mapping to make the bundle setup easier
+* Merge Feature and Feedback model
 
 ## [0.2.0] - 2016-07-17
 ### Added

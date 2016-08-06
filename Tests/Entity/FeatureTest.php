@@ -11,11 +11,11 @@ class FeatureTest extends \PHPUnit_Framework_TestCase {
         $feature =
             (new Feature())
             ->setId(1)
-            ->setType('user')
+            ->setFeatureType(Feature::FEATURE_TYPE_USER)
             ->setName('Calendar')
             ->setSlug('calendar')
             ->setDescription('Calendar of all the events')
-            ->setDeveloper((new User()))
+            ->setResponsible((new User()))
             ->setProject((new Project()))
             ->setProductOwnerValue(80)
             ->setUserValue(67)
@@ -24,16 +24,17 @@ class FeatureTest extends \PHPUnit_Framework_TestCase {
             ->setUpdatedAt(new \DateTime())
         ;
         $this->assertEquals(1, $feature->getId());
-        $this->assertEquals('user', $feature->getType());
+        $this->assertEquals(Feature::FEATURE_TYPE_USER, $feature->getFeatureType());
+        $this->assertEquals(Feature::TYPE_FEATURE, $feature->getType());
         $this->assertEquals('Calendar', $feature->getName());
         $this->assertEquals('calendar', $feature->getSlug());
         $this->assertEquals('Calendar of all the events', $feature->getDescription());
-        $this->assertInstanceOf(User::class, $feature->getDeveloper());
+        $this->assertInstanceOf(User::class, $feature->getResponsible());
         $this->assertInstanceOf(Project::class, $feature->getProject());
         $this->assertEquals(Feature::STATUS_IN_PROGRESS, $feature->getStatus());
         $this->assertEquals(80, $feature->getProductOwnerValue());
         $this->assertEquals(67, $feature->getUserValue());
-        $this->assertInstanceOf(\DateTime::class, $feature->getCreatedAt());
-        $this->assertInstanceOf(\DateTime::class, $feature->getUpdatedAt());
+        $this->assertInstanceOf('DateTime', $feature->getCreatedAt());
+        $this->assertInstanceOf('DateTime', $feature->getUpdatedAt());
     }
 }

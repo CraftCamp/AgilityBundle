@@ -117,7 +117,7 @@ class FeatureManagerTest extends \PHPUnit_Framework_TestCase {
             ->setSlug('calendar-creation')
             ->setDescription('Create a new calendar')
             ->setProject(new Project())
-            ->setDeveloper(new User())
+            ->setResponsible(new User())
             ->setCreatedAt(new \DateTime())
             ->setUpdatedAt(new \DateTime())
         ;
@@ -131,7 +131,7 @@ class FeatureManagerTest extends \PHPUnit_Framework_TestCase {
             ->setSlug('calendar-creation')
             ->setDescription('Create a new calendar')
             ->setProject(new Project())
-            ->setDeveloper(new User())
+            ->setResponsible(new User())
             ->setCreatedAt(new \DateTime())
             ->setUpdatedAt(new \DateTime()),
             (new Feature())
@@ -140,7 +140,7 @@ class FeatureManagerTest extends \PHPUnit_Framework_TestCase {
             ->setSlug('calendar-edition')
             ->setDescription('Edit an existing calendar')
             ->setProject(new Project())
-            ->setDeveloper(new User())
+            ->setResponsible(new User())
             ->setCreatedAt(new \DateTime())
             ->setUpdatedAt(new \DateTime()),
             (new Feature())
@@ -149,7 +149,7 @@ class FeatureManagerTest extends \PHPUnit_Framework_TestCase {
             ->setSlug('calendar-removal')
             ->setDescription('Remove an existing calendar')
             ->setProject(new Project())
-            ->setDeveloper(new User())
+            ->setResponsible(new User())
             ->setCreatedAt(new \DateTime())
             ->setUpdatedAt(new \DateTime()),
         ];

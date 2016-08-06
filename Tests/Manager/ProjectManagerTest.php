@@ -132,7 +132,7 @@ class ProjectManagerTest extends \PHPUnit_Framework_TestCase {
             ->setCreatedAt(new \DateTime())
             ->setNbBetaTesters(12)
             ->setBetaTestStatus('open')
-            ->setProductOwner(new \StdClass)
+            ->setProductOwner(new User())
         ;
     }
 
