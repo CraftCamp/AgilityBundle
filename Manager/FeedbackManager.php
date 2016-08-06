@@ -15,20 +15,7 @@ use Developtech\AgilityBundle\Utils\Slugger;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class FeedbackManager {
-    /** @var EntityManager **/
-    protected $em;
-    /** @var Slugger **/
-    protected $slugger;
-
-    /**
-     * @param EntityManager $em
-     * @param Slugger $slugger
-     */
-    public function __construct(EntityManager $em, Slugger $slugger) {
-        $this->em = $em;
-        $this->slugger = $slugger;
-    }
+class FeedbackManager extends JobManager {
 
     /**
      * @param ProjectModel $project

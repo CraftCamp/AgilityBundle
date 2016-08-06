@@ -2,32 +2,13 @@
 
 namespace Developtech\AgilityBundle\Manager;
 
-use Doctrine\ORM\EntityManager;
-
 use Developtech\AgilityBundle\Model\ProjectModel;
-use Developtech\AgilityBundle\Model\FeatureModel;
 
 use Developtech\AgilityBundle\Entity\Feature;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-use Developtech\AgilityBundle\Utils\Slugger;
-
-class FeatureManager {
-    /** @var EntityManager **/
-    protected $em;
-    /** @var Slugger **/
-    protected $slugger;
-
-    /**
-     * @param EntityManager $em
-     * @param Slugger $slugger
-     */
-    public function __construct(EntityManager $em, Slugger $slugger) {
-        $this->em = $em;
-        $this->slugger = $slugger;
-    }
-
+class FeatureManager extends JobManager {
     /**
      * @param ProjectModel $project
      * @return array
@@ -38,7 +19,7 @@ class FeatureManager {
 
     /**
      * @param integer $id
-     * @return FeatureModel
+     * @return Feature
      */
     public function getFeature($id) {
         if(($feature = $this->em->getRepository(Feature::class)->find($id)) === null) {
@@ -54,7 +35,7 @@ class FeatureManager {
      * @param integer $status
      * @param integer $productOwnerValue
      * @param UserInterface $responsible
-     * @return FeatureModel
+     * @return Feature
      */
     public function createProductOwnerFeature(ProjectModel $project, $name, $description, $status, $productOwnerValue = null, $responsible = null) {
         $feature =
