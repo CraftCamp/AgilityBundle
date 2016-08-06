@@ -4,6 +4,8 @@ namespace Developtech\AgilityBundle\Repository;
 
 use Developtech\AgilityBundle\Model\ProjectModel;
 
+use Developtech\AgilityBundle\Entity\Job;
+
 /**
  * FeedbackRepository
  *
@@ -19,8 +21,8 @@ class FeedbackRepository extends \Doctrine\ORM\EntityRepository
      */
     public function countPerStatus(ProjectModel $project, $status) {
         $statement = $this->getEntityManager()->getConnection()->prepare(
-            "SELECT COUNT(*) as nb_feedbacks FROM {$this->getClassMetadata()->getTableName()} " .
-            "WHERE project_id = :project_id AND status = :status"
+            "SELECT COUNT(*) as nb_feedbacks FROM {$this->getEntityManager()->getClassMetadata(Job::class)->getTableName()} " .
+            "WHERE project_id = :project_id AND status = :status AND type = '" . Job::TYPE_FEEDBACK . "'"
         );
         $statement->execute([
             'project_id' => $project->getId(),
