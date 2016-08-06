@@ -1,6 +1,6 @@
 <?php
 
-use Developtech\AgilityBundle\Model\FeedbackModel;
+use Developtech\AgilityBundle\Entity\Feedback;
 
 return [
     [
@@ -9,7 +9,7 @@ return [
         'name' => 'The homepage does not work on IE6',
         'slug' => 'the-homepage-does-not-work-on-ie6',
         'description' => '',
-        'status' => FeedbackModel::STATUS_OPEN,
+        'status' => Feedback::STATUS_OPEN,
         'created_at' => '2016-08-01 15:00:00',
         'updated_at' => '2016-08-01 15:00:00',
     ],
@@ -19,7 +19,7 @@ return [
         'name' => 'The homepage does not work on IE6',
         'slug' => 'the-homepage-does-not-work-on-ie6',
         'description' => '',
-        'status' => FeedbackModel::STATUS_IN_PROGRESS,
+        'status' => Feedback::STATUS_IN_PROGRESS,
         'created_at' => '2016-08-01 15:00:00',
         'updated_at' => '2016-08-01 15:00:00',
     ],
@@ -29,7 +29,7 @@ return [
         'name' => 'The homepage does not work on IE6',
         'slug' => 'the-homepage-does-not-work-on-ie6',
         'description' => '',
-        'status' => FeedbackModel::STATUS_OPEN,
+        'status' => Feedback::STATUS_OPEN,
         'created_at' => '2016-08-01 15:00:00',
         'updated_at' => '2016-08-01 15:00:00',
     ],
@@ -39,7 +39,7 @@ return [
         'name' => 'The homepage does not work on IE6',
         'slug' => 'the-homepage-does-not-work-on-ie6',
         'description' => '',
-        'status' => FeedbackModel::STATUS_TO_DO,
+        'status' => Feedback::STATUS_TO_DO,
         'created_at' => '2016-08-01 15:00:00',
         'updated_at' => '2016-08-01 15:00:00',
     ],
@@ -49,7 +49,7 @@ return [
         'name' => 'The fridge is empty',
         'slug' => 'the-fridge-is-empty',
         'description' => '',
-        'status' => FeedbackModel::STATUS_IN_PROGRESS,
+        'status' => Feedback::STATUS_IN_PROGRESS,
         'created_at' => '2016-08-01 15:00:00',
         'updated_at' => '2016-08-01 15:00:00',
     ],
