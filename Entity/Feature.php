@@ -4,8 +4,6 @@ namespace Developtech\AgilityBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-use Developtech\AgilityBundle\Model\FeatureModel;
-
 /**
  * Feedback
  *
@@ -13,72 +11,61 @@ use Developtech\AgilityBundle\Model\FeatureModel;
  * @ORM\Table(name="developtech_agility__features")
  * @ORM\HasLifecycleCallbacks()
  */
-class Feature extends FeatureModel {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     * @ORM\Column(type="integer")
-     */
-    protected $id;
-
+class Feature extends Job {
     /**
      * @ORM\Column(type="string", length=15)
      */
-    protected $type;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    protected $name;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    protected $slug;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    protected $description;
-
+    protected $featureType;
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $productOwnerValue;
-
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $userValue;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    protected $createdAt;
+    const FEATURE_TYPE_PRODUCT_OWNER = 'product-owner';
+    const FEATURE_TYPE_USER = 'user';
+
+    const STATUS_TO_SPECIFY = 0;
+    const STATUS_TO_VALORIZE = 1;
+    const STATUS_READY = 2;
+    const STATUS_TO_DO = 3;
+    const STATUS_IN_PROGRESS = 4;
+    const STATUS_TO_VALIDATE = 5;
+    const STATUS_TO_DEPLOY = 6;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @return string
      */
-    protected $updatedAt;
+    public function getType() {
+        return self::TYPE_FEATURE;
+    }
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    protected $status;
-
-    /**
-     * @var Project
-     *
-     * @ORM\ManyToOne(targetEntity="Developtech\AgilityBundle\Entity\Project", inversedBy="features")
-     */
-    protected $project;
-
-    /**
-     * @param integer $id
+     * @param string $featureType
      * @return FeatureModel
      */
-    public function setId($id) {
-        $this->id = $id;
+    public function setFeatureType($featureType) {
+        $this->featureType = $featureType;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFeatureType() {
+        return $this->featureType;
+    }
+
+    /**
+     * @param integer $productOwnerValue
+     * @return FeatureModel
+     */
+    public function setProductOwnerValue($productOwnerValue) {
+        $this->productOwnerValue = $productOwnerValue;
 
         return $this;
     }
@@ -86,21 +73,24 @@ class Feature extends FeatureModel {
     /**
      * @return integer
      */
-    public function getId() {
-        return $this->id;
+    public function getProductOwnerValue() {
+        return $this->productOwnerValue;
     }
 
     /**
-     * @ORM\PrePersist()
+     * @var integer $userValue
+     * @return FeatureModel
      */
-    public function prePersist() {
-        $this->createdAt = $this->updatedAt = new \DateTime();
+    public function setUserValue($userValue) {
+        $this->userValue = $userValue;
+
+        return $this;
     }
 
     /**
-     * @ORM\PreUpdate()
+     * @return integer
      */
-    public function preUpdate() {
-        $this->updatedAt = new \DateTime();
+    public function getUserValue() {
+        return $this->userValue;
     }
 }
