@@ -17,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
  * })
  * @ORM\HasLifecycleCallbacks
  */
-class Job extends JobModel {
+abstract class Job extends JobModel {
     /**
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
