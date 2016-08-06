@@ -1,4 +1,4 @@
-## [Unreleased]
+## [0.3.0]
 ### Added
 * Get feedbacks by author service
 * Count feedbacks per status
