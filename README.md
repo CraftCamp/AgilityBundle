@@ -1,9 +1,12 @@
 DevelopTech Agility Bundle
 ==========================
 
+[![Latest Stable Version](https://poser.pugx.org/developtech/agility-bundle/v/stable)](https://packagist.org/packages/developtech/agility-bundle)
+[![Total Downloads](https://poser.pugx.org/developtech/agility-bundle/downloads)](https://packagist.org/packages/developtech/agility-bundle)
 [![Build Status](https://scrutinizer-ci.com/g/DevelopTech/AgilityBundle/badges/build.png?b=master)](https://scrutinizer-ci.com/g/DevelopTech/AgilityBundle/build-status/master)
 [![Code Coverage](https://scrutinizer-ci.com/g/DevelopTech/AgilityBundle/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/DevelopTech/AgilityBundle/?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/DevelopTech/AgilityBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/DevelopTech/AgilityBundle/?branch=master)
+[![License](https://poser.pugx.org/developtech/agility-bundle/license)](https://packagist.org/packages/developtech/agility-bundle)
 
 Introduction
 ------------
