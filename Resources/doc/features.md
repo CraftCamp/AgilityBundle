@@ -1,6 +1,35 @@
 Features
 ========
 
+The features are what your product will allow the user to do with it.
+
+In an Agile project, a feature has to be valued by the Product Owner to sort features by priority.
+
+The users are also able to vote and tell what importance has the feature for them.
+
+In later versions, the user value will be handled with Vote objects, and the userValue field will be the average of the given values.
+
+In later versions also, the team will be able to estimate the complexity of the feature development. It will allow priorization by a ratio between value and complexity.
+
+The developer field represents the feature responsible
+
+Model
+-----
+
+The Feature object has the following fields :
+
+* id (integer)
+* name (string)
+* slug (string)
+* description (string)
+* productOwnerValue (integer)
+* userValue (integer)
+* createdAt (DateTime)
+* updatedAt (DateTime)
+* status (integer)
+* project (Developtech\AgilityBundle\Entity\Project)
+* developer (UserInterface)
+
 Services
 --------
 

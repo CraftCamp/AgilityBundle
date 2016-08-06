@@ -1,6 +1,32 @@
 Feedbacks
 ========
 
+The feedbacks are the thoughts and feelings of your users concerning your product.
+
+They are the way to ensure user satisfaction, and the most precious resource a product owner has.
+
+In later versions, the product owner will be able to choose a type and a priority for the feedbacks.
+
+The developer field represents the feedback responsible.
+
+The author field is the User who created the feedback.
+
+Model
+-----
+
+The Feature object has the following fields :
+
+* id (integer)
+* name (string)
+* slug (string)
+* description (string)
+* createdAt (DateTime)
+* updatedAt (DateTime)
+* status (integer)
+* project (Developtech\AgilityBundle\Entity\Project)
+* author (UserInterface)
+* developer (UserInterface)
+
 Services
 --------
 

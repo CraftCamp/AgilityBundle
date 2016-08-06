@@ -1,6 +1,28 @@
 Projects
 ========
 
+Projects are linked to the products you want to create.
+
+Each one represents a product, with its features, its feedbacks, and the whole project management lies on this object.
+
+A project is managed by the product owner, who has a capital place inside the project team.
+
+It will be also the mean to organize beta tests with dedicated accounts in later versions.
+
+For now, the beta test informations are just indicative, and stored in the Project object.
+
+Model
+-----
+
+* id (integer)
+* name (string)
+* slug (string)
+* description (string)
+* createdAt (DateTime)
+* productOwner (UserInterface)
+* features (Doctrine\Common\Collections\ArrayCollection)
+* feedbacks (Doctrine\Common\Collections\ArrayCollection)
+
 Services
 --------
 
