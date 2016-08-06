@@ -79,7 +79,7 @@ class FeedbackManager {
             ->setDescription($description)
             ->setProject($project)
             ->setAuthor($author)
-            ->setStatus(FeedbackModel::STATUS_OPEN)
+            ->setStatus(Feedback::STATUS_OPEN)
         ;
         $this->em->persist($feedback);
         $this->em->flush();

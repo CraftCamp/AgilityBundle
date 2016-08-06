@@ -53,20 +53,20 @@ class FeatureManager {
      * @param string $description
      * @param integer $status
      * @param integer $productOwnerValue
-     * @param UserInterface $developer
+     * @param UserInterface $responsible
      * @return FeatureModel
      */
-    public function createProductOwnerFeature(ProjectModel $project, $name, $description, $status, $productOwnerValue = null, $developer = null) {
+    public function createProductOwnerFeature(ProjectModel $project, $name, $description, $status, $productOwnerValue = null, $responsible = null) {
         $feature =
             (new Feature())
             ->setProject($project)
-            ->setType('product-owner')
+            ->setFeatureType(Feature::FEATURE_TYPE_PRODUCT_OWNER)
             ->setName($name)
             ->setSlug($this->slugger->slugify($name))
             ->setDescription($description)
             ->setStatus($status)
             ->setProductOwnerValue($productOwnerValue)
-            ->setDeveloper($developer)
+            ->setResponsible($responsible)
         ;
         $project->addFeature($feature);
         $this->em->persist($feature);
