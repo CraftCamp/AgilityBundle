@@ -59,6 +59,7 @@ abstract class Job extends JobModel {
      * @var Project
      *
      * @ORM\ManyToOne(targetEntity="Developtech\AgilityBundle\Entity\Project", inversedBy="feedbacks")
+     * @ORM\JoinColumn(name="project_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $project;
 
