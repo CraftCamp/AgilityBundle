@@ -1,3 +1,7 @@
+## [Unreleased]
+### Fixed
+* Model mapping for fixtures purge
+
 ## [0.3.0]
 ### Added
 * Get feedbacks by author service
