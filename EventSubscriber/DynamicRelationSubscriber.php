@@ -58,7 +58,10 @@ class DynamicRelationSubscriber implements EventSubscriber
             'fieldName'     => 'productOwner',
             'cascade'       => array(),
             'joinColumn'    => array(
-                'nullable' => false
+                'name' => 'product_owner_id',
+                'referencedColumnName' => 'id',
+                'onDelete' => 'SET NULL',
+                'nullable' => true
             )
         ));
     }
@@ -72,6 +75,9 @@ class DynamicRelationSubscriber implements EventSubscriber
             'fieldName'     => 'responsible',
             'cascade'       => array(),
             'joinColumn'    => array(
+                'name' => 'responsible_id',
+                'referencedColumnName' => 'id',
+                'onDelete' => 'SET NULL',
                 'nullable' => true
             )
         ));
@@ -86,6 +92,9 @@ class DynamicRelationSubscriber implements EventSubscriber
             'fieldName'     => 'author',
             'cascade'       => array(),
             'joinColumn'    => array(
+                'name' => 'author_id',
+                'referencedColumnName' => 'id',
+                'onDelete' => 'CASCADE',
                 'nullable' => false
             )
         ));
@@ -94,6 +103,9 @@ class DynamicRelationSubscriber implements EventSubscriber
             'fieldName'     => 'responsible',
             'cascade'       => array(),
             'joinColumn'    => array(
+                'name' => 'responsible_id',
+                'referencedColumnName' => 'id',
+                'onDelete' => 'SET NULL',
                 'nullable' => true
             )
         ));
