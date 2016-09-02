@@ -110,4 +110,18 @@ class DynamicRelationSubscriber implements EventSubscriber
             )
         ));
     }
+
+    public function mapBetaTester(ClassMetadata $metadata) {
+        $metadata->mapOnetoOne([
+            'targetEntity' => $this->userClass,
+            'fieldName' => 'account',
+            'cascade' => [],
+            'joinColumn' => [
+                'name' => 'account_id',
+                'referencedColumnName' => 'id',
+                'onDelete' => 'CASCADE',
+                'nullable' => false
+            ]
+        ])
+    }
 }
