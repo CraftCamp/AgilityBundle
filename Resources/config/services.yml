@@ -18,6 +18,11 @@ services:
             - "@doctrine.orm.entity_manager"
             - "@developtech_agility.slugger"
 
+    developtech_agility.beta_test_manager:
+        class: Developtech\AgilityBundle\Manager\BetaTestManager
+        arguments:
+            - "@doctrine.orm.entity_manager"
+
     developtech_agility.slugger:
         class: Developtech\AgilityBundle\Utils\Slugger
 
