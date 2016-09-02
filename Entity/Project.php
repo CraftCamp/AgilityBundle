@@ -45,14 +45,10 @@ class Project extends ProjectModel
     protected $createdAt;
 
     /**
-     * @ORM\Column(name="nbBetaTesters", type="integer")
+     * @ORM\ManyToOne(targetEntity="Developtech\AgilityBundle\Entity\BetaTest", inversedBy="project")
+     * @ORM\JoinColumn(name="project_id", referencedColumnName="id", onDelete="CASCADE")
      */
-    protected $nbBetaTesters;
-
-    /**
-     * @ORM\Column(name="betaTestStatus", type="string", length=12)
-     */
-    protected $betaTestStatus;
+    protected $betaTests;
 
     /**
      * @ORM\OneToMany(targetEntity="Developtech\AgilityBundle\Entity\Feature", mappedBy="project")
