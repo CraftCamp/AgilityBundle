@@ -31,8 +31,6 @@ class LoadProjectData extends AbstractFixture implements OrderedFixtureInterface
                 ->setName($projectData['name'])
                 ->setSlug($projectData['slug'])
                 ->setDescription($projectData['description'])
-                ->setBetaTestStatus($projectData['beta_test_status'])
-                ->setNbBetaTesters($projectData['nb_beta_testers'])
                 ->setCreatedAt(new \DateTime($projectData['created_at']))
             ;
             $manager->persist($project);
