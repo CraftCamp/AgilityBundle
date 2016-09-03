@@ -58,8 +58,6 @@ class ProjectManager {
             ->setName($name)
             ->setSlug($this->slugger->slugify($name))
             ->setProductOwner($productOwner)
-            ->setBetaTestStatus('closed')
-            ->setNbBetaTesters(0)
         ;
         $this->em->persist($project);
         $this->em->flush();
@@ -69,21 +67,17 @@ class ProjectManager {
     /**
      * @param integer $id
      * @param string $name
-     * @param integer $betaTestStatus
-     * @param integer $nbBetaTesters
      * @param UserInterface $productOwner
      * @throws NotFoundHttpException
      * @return ProjectModel
      */
-    public function editProject($id, $name, $betaTestStatus, $nbBetaTesters, UserInterface $productOwner = null) {
+    public function editProject($id, $name, UserInterface $productOwner = null) {
         if (($project = $this->em->getRepository(Project::class)->find($id)) === null) {
             throw new NotFoundHttpException('Project not found');
         }
         $project
             ->setName($name)
             ->setSlug($this->slugger->slugify($name))
-            ->setBetaTestStatus($betaTestStatus)
-            ->setNbBetaTesters($nbBetaTesters)
         ;
         if($productOwner !== null) {
             $project->setProductOwner($productOwner);

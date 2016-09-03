@@ -20,10 +20,8 @@ abstract class ProjectModel
     protected $description;
     /** @var \DateTime */
     protected $createdAt;
-    /** @var int */
-    protected $nbBetaTesters;
-    /** @var string */
-    protected $betaTestStatus;
+    /** @var ArrayCollection */
+    protected $betaTests;
     /** @var UserInterface */
     protected $productOwner;
     /** @var ArrayCollection */
@@ -32,6 +30,7 @@ abstract class ProjectModel
     protected $feedbacks;
 
     public function __construct() {
+        $this->betaTests = new ArrayCollection();
         $this->features = new ArrayCollection();
         $this->feedbacks = new ArrayCollection();
     }
@@ -150,51 +149,38 @@ abstract class ProjectModel
     }
 
     /**
-     * Set nbBetaTesters
-     *
-     * @param integer $nbBetaTesters
-     *
+     * @param BetaTestModel $betaTest
      * @return ProjectModel
      */
-    public function setNbBetaTesters($nbBetaTesters)
-    {
-        $this->nbBetaTesters = $nbBetaTesters;
+    public function addBetaTest(BetaTestModel $betaTest) {
+        $this->betaTests->add($betaTest);
 
         return $this;
     }
 
     /**
-     * Get nbBetaTesters
-     *
-     * @return int
-     */
-    public function getNbBetaTesters()
-    {
-        return $this->nbBetaTesters;
-    }
-
-    /**
-     * Set betaTestStatus
-     *
-     * @param string $betaTestStatus
-     *
+     * @param BetaTestModel $betaTest
      * @return ProjectModel
      */
-    public function setBetaTestStatus($betaTestStatus)
-    {
-        $this->betaTestStatus = $betaTestStatus;
+    public function removeBetaTest(BetaTestModel $betaTest) {
+        $this->betaTests->removeElement($betaTest);
 
         return $this;
     }
 
     /**
-     * Get betaTestStatus
-     *
-     * @return string
+     * @param BetaTestModel $betaTest
+     * @return boolean
      */
-    public function getBetaTestStatus()
-    {
-        return $this->betaTestStatus;
+    public function hasBetaTest(BetaTestModel $betaTest) {
+        return $this->betaTests->contains($betaTest);
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getBetaTests() {
+        return $this->betaTests;
     }
 
     /**
