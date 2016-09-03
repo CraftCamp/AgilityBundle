@@ -27,7 +27,8 @@ class BetaTest extends BetaTestModel {
      */
     protected $slug;
     /**
-     * @ORM\OneToMany(targetEntity="Developtech\AgilityBundle\Entity\Project", mappedBy="betaTests")
+     * @ORM\ManyToOne(targetEntity="Developtech\AgilityBundle\Entity\Project", inversedBy="betaTests")
+     * @ORM\JoinColumn(name="project_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $project;
     /**

@@ -12,6 +12,7 @@ class DynamicRelationSubscriber implements EventSubscriber
     const MODEL_PROJECT = 'Developtech\AgilityBundle\Entity\Project';
     const MODEL_FEATURE = 'Developtech\AgilityBundle\Entity\Feature';
     const MODEL_FEEDBACK = 'Developtech\AgilityBundle\Entity\Feedback';
+    const MODEL_BETA_TESTER = 'Developtech\AgilityBundle\Entity\BetaTester';
 
     /** @var string **/
     protected $userClass;
@@ -45,6 +46,7 @@ class DynamicRelationSubscriber implements EventSubscriber
             case self::MODEL_PROJECT: return $this->mapProject($metadata);
             case self::MODEL_FEATURE: return $this->mapFeature($metadata);
             case self::MODEL_FEEDBACK: return $this->mapFeedback($metadata);
+            case self::MODEL_BETA_TESTER: return $this->mapBetaTester($metadata);
             default: return;
         }
     }
@@ -111,6 +113,9 @@ class DynamicRelationSubscriber implements EventSubscriber
         ));
     }
 
+    /**
+     * @param CLassMetadata $metadata
+     */
     public function mapBetaTester(ClassMetadata $metadata) {
         $metadata->mapOnetoOne([
             'targetEntity' => $this->userClass,
@@ -122,6 +127,6 @@ class DynamicRelationSubscriber implements EventSubscriber
                 'onDelete' => 'CASCADE',
                 'nullable' => false
             ]
-        ])
+        ]);
     }
 }

@@ -7,7 +7,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Developtech\AgilityBundle\Model\BetaTesterModel;
 
 /**
- *
  * @ORM\Entity(repositoryClass="Developtech\AgilityBundle\Repository\BetaTesterRepository")
  * @ORM\Table(name="developtech_agility__beta_testers")
  * @ORM\HasLifecycleCallbacks()
@@ -15,8 +14,10 @@ use Developtech\AgilityBundle\Model\BetaTesterModel;
 class BetaTester extends BetaTesterModel {
     /**
      * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
      */
-    protected $account;
+    protected $id;
     /**
      * @ORM\Column(name="created_at", type="datetime")
      */
@@ -38,5 +39,22 @@ class BetaTester extends BetaTesterModel {
      */
     public function preUpdate() {
         $this->updatedAt = new \DateTime();
+    }
+
+    /**
+     * @param integer $id
+     * @return BetaTester
+     */
+    public function setId($id) {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getId() {
+        return $this->id;
     }
 }

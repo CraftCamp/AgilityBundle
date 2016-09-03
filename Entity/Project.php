@@ -45,8 +45,7 @@ class Project extends ProjectModel
     protected $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Developtech\AgilityBundle\Entity\BetaTest", inversedBy="project")
-     * @ORM\JoinColumn(name="project_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\OneToMany(targetEntity="Developtech\AgilityBundle\Entity\BetaTest", mappedBy="project")
      */
     protected $betaTests;
 
