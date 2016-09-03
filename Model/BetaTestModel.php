@@ -160,7 +160,7 @@ abstract class BetaTestModel {
      * @return BetaTestModel
      */
     public function removeBetaTester(BetaTesterModel $betaTester) {
-        $this->betaTesters->remove($betaTester);
+        $this->betaTesters->removeElement($betaTester);
 
         return $this;
     }
