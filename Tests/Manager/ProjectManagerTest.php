@@ -45,14 +45,12 @@ class ProjectManagerTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testEditProject() {
-        $project = $this->manager->editProject(3, 'Updated project', 'open', 10);
+        $project = $this->manager->editProject(3, 'Updated project');
 
         $this->assertInstanceOf(Project::class, $project);
         $this->assertEquals(3, $project->getId());
         $this->assertEquals('Updated project', $project->getName());
         $this->assertEquals('updated-project', $project->getSlug());
-        $this->assertEquals('open', $project->getBetaTestStatus());
-        $this->assertEquals(10, $project->getNbBetaTesters());
     }
 
     /**
@@ -60,7 +58,7 @@ class ProjectManagerTest extends \PHPUnit_Framework_TestCase {
      * @expectedExceptionMessage Project not found
      */
     public function testEditProjectWithUnexistingProject() {
-        $this->manager->editProject(2, 'Unknown project', 'closed', 0);
+        $this->manager->editProject(2, 'Unknown project');
     }
 
     public function getEntityManagerMock() {
@@ -130,8 +128,6 @@ class ProjectManagerTest extends \PHPUnit_Framework_TestCase {
             ->setName('Great project')
             ->setSlug('great-project')
             ->setCreatedAt(new \DateTime())
-            ->setNbBetaTesters(12)
-            ->setBetaTestStatus('open')
             ->setProductOwner(new User())
         ;
     }
@@ -141,21 +137,15 @@ class ProjectManagerTest extends \PHPUnit_Framework_TestCase {
             (new Project())
             ->setName('Great Project')
             ->setSlug('great-project')
-            ->setCreatedAt(new \DateTime())
-            ->setNbBetaTesters(12)
-            ->setBetaTestStatus('open'),
+            ->setCreatedAt(new \DateTime()),
             (new Project())
             ->setName('Bloody Project')
             ->setSlug('bloody-project')
-            ->setCreatedAt(new \DateTime())
-            ->setNbBetaTesters(17)
-            ->setBetaTestStatus('closed'),
+            ->setCreatedAt(new \DateTime()),
             (new Project())
             ->setName('Messy Project')
             ->setSlug('messy-project')
-            ->setCreatedAt(new \DateTime())
-            ->setNbBetaTesters(24)
-            ->setBetaTestStatus('closed'),
+            ->setCreatedAt(new \DateTime()),
         ];
     }
 }
