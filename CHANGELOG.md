@@ -1,4 +1,9 @@
 ## [Unreleased]
+### Added
+* Beta test model
+* Beta tester model
+* Beta tests list service
+
 ### Fixed
 * Model mapping for fixtures purge
 
