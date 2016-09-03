@@ -64,3 +64,5 @@ Documentation
 * [Projects](Resources/doc/projects.md)
 * [Features (User stories)](Resources/doc/features.md)
 * [Feedbacks](Resources/doc/feedbacks.md)
+* [Beta Tests](Resources/doc/beta_tests.md)
+* [Beta Testers](Resources/doc/beta_testers.md)

@@ -9,8 +9,6 @@ A project is managed by the product owner, who has a capital place inside the pr
 
 It will be also the mean to organize beta tests with dedicated accounts in later versions.
 
-For now, the beta test informations are just indicative, and stored in the Project object.
-
 Model
 -----
 
@@ -20,6 +18,7 @@ Model
 * description (string)
 * createdAt (DateTime)
 * productOwner (UserInterface)
+* betaTests (Doctrine\Common\Collections\ArrayCollection)
 * features (Doctrine\Common\Collections\ArrayCollection)
 * feedbacks (Doctrine\Common\Collections\ArrayCollection)
 
@@ -72,12 +71,10 @@ The service arguments are :
 
 * The project ID
 * The project name
-* The Beta test status ('open' or 'closed')
-* The number of beta testers
 * The product owner (can be null)
 
 This method will return the updated ``Project`` object.
 
 ```php
-$project = $this->get('developtech_agility.project_manager')->editProject(1, 'Great project', 'open', 10);
+$project = $this->get('developtech_agility.project_manager')->editProject(1, 'Great project');
 ```
