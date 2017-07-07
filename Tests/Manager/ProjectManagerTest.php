@@ -36,21 +36,23 @@ class ProjectManagerTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testCreateProject() {
-        $project = $this->manager->createProject('Great project', new User());
+        $project = $this->manager->createProject('Great project', 'The project of the year', new User());
 
         $this->assertInstanceOf(Project::class, $project);
         $this->assertEquals('Great project', $project->getName());
         $this->assertEquals('great-project', $project->getSlug());
+        $this->assertEquals('The project of the year', $project->getDescription());
         $this->assertInstanceOf(User::class, $project->getProductOwner());
     }
 
     public function testEditProject() {
-        $project = $this->manager->editProject(3, 'Updated project');
+        $project = $this->manager->editProject(3, 'Updated project', 'Awesome project of the year');
 
         $this->assertInstanceOf(Project::class, $project);
         $this->assertEquals(3, $project->getId());
         $this->assertEquals('Updated project', $project->getName());
         $this->assertEquals('updated-project', $project->getSlug());
+        $this->assertEquals('Awesome project of the year', $project->getDescription());
     }
 
     /**
@@ -58,7 +60,7 @@ class ProjectManagerTest extends \PHPUnit_Framework_TestCase {
      * @expectedExceptionMessage Project not found
      */
     public function testEditProjectWithUnexistingProject() {
-        $this->manager->editProject(2, 'Unknown project');
+        $this->manager->editProject(2, 'Unknown project', 'Where is my project ?');
     }
 
     public function getEntityManagerMock() {
