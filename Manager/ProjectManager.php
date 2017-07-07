@@ -49,40 +49,48 @@ class ProjectManager {
 
     /**
      * @param string $name
+	 * @param string $description
      * @param UserInterface $productOwner
      * @return \DevelopTech\AgilityBundle\ProjectModel
      */
-    public function createProject($name, UserInterface $productOwner) {
+    public function createProject($name, $description, UserInterface $productOwner) {
         $project =
             (new Project())
             ->setName($name)
             ->setSlug($this->slugger->slugify($name))
+			->setDescription($description)
             ->setProductOwner($productOwner)
         ;
+		
         $this->em->persist($project);
-        $this->em->flush();
+        $this->em->flush($project);
+		
         return $project;
     }
 
     /**
      * @param integer $id
      * @param string $name
+	 * @param string $description
      * @param UserInterface $productOwner
      * @throws NotFoundHttpException
      * @return ProjectModel
      */
-    public function editProject($id, $name, UserInterface $productOwner = null) {
+    public function editProject($id, $name, $description, UserInterface $productOwner = null) {
         if (($project = $this->em->getRepository(Project::class)->find($id)) === null) {
             throw new NotFoundHttpException('Project not found');
         }
         $project
             ->setName($name)
             ->setSlug($this->slugger->slugify($name))
+			->setDescription($description)
         ;
         if($productOwner !== null) {
             $project->setProductOwner($productOwner);
         }
-        $this->em->flush();
+		
+        $this->em->flush($project);
+		
         return $project;
     }
 }
