@@ -58,6 +58,11 @@ class Project extends ProjectModel
      * @ORM\OneToMany(targetEntity="Developtech\AgilityBundle\Entity\Feedback", mappedBy="project")
      */
     protected $feedbacks;
+	
+	/**
+	 * ORM\OneToMany(targetEntity="Developtech\AgilityBundle\Entity\Repository\Repository", mappedBy="project")
+	 */
+	protected $repositories;
 
     /**
      * @ORM\PrePersist()

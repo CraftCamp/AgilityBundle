@@ -2,8 +2,6 @@
 
 namespace Developtech\AgilityBundle\Model;
 
-use Doctrine\ORM\Mapping as ORM;
-
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -12,27 +10,30 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 abstract class ProjectModel
 {
-    /** @var string */
+    /** @var string **/
     protected $name;
-    /** @var string */
+    /** @var string **/
     protected $slug;
     /** @var string **/
     protected $description;
-    /** @var \DateTime */
+    /** @var \DateTime **/
     protected $createdAt;
-    /** @var ArrayCollection */
+    /** @var ArrayCollection **/
     protected $betaTests;
-    /** @var UserInterface */
+    /** @var UserInterface **/
     protected $productOwner;
-    /** @var ArrayCollection */
+    /** @var ArrayCollection **/
     protected $features;
-    /** @var ArrayCollection */
+    /** @var ArrayCollection **/
     protected $feedbacks;
+	/** @var ArrayCollection **/
+	protected $repositories;
 
     public function __construct() {
         $this->betaTests = new ArrayCollection();
         $this->features = new ArrayCollection();
         $this->feedbacks = new ArrayCollection();
+        $this->repositories = new ArrayCollection();
     }
 
     /**
@@ -275,5 +276,40 @@ abstract class ProjectModel
      */
     public function getFeedbacks() {
         return $this->feedbacks;
+    }
+
+    /**
+     * @param RepositoryModel $repository
+     * @return ProjectModel
+     */
+    public function addRepository(RepositoryModel $repository) {
+        $this->repositories->add($repository);
+
+        return $this;
+    }
+
+    /**
+     * @param RepositoryModel $repository
+     * @return ProjectModel
+     */
+    public function removeRepository(RepositoryModel $repository) {
+        $this->repositories->removeElement($repository);
+
+        return $this;
+    }
+
+    /**
+     * @param RepositoryModel $repository
+     * @return boolean
+     */
+    public function hasRepository(RepositoryModel $repository) {
+        return $this->repositories->contains($repository);
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getRepositories() {
+        return $this->repositories;
     }
 }
