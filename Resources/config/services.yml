@@ -4,6 +4,7 @@ services:
         class: Developtech\AgilityBundle\Manager\ProjectManager
         arguments:
             - "@doctrine.orm.entity_manager"
+            - "@event_dispatcher"
             - "@developtech_agility.slugger"
 
     developtech_agility.feature_manager:

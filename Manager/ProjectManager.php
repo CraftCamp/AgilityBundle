@@ -4,7 +4,10 @@ namespace Developtech\AgilityBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
 
+use Symfony\Component\EventDispatcher\EventDispatcher;
+
 use Developtech\AgilityBundle\Entity\Project;
+use Developtech\AgilityBundle\Event\ProjectEvent;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -13,17 +16,21 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Developtech\AgilityBundle\Utils\Slugger;
 
 class ProjectManager {
-    /** @var Doctrine\ORM\EntityManager **/
+    /** @var EntityManager **/
     protected $em;
-    /** @var Developtech\AgilityBundle\Utils\Slugger **/
+	/** @var EventDispatcher **/
+	protected $eventDispatcher;
+    /** @var Slugger **/
     protected $slugger;
 
     /**
-     * @param Doctrine\ORM\EntityManager $em
+     * @param EntityManager $em
+	 * @param EventDispatcher $eventDispatcher
      * @param Slugger $slugger
      */
-    public function __construct(EntityManager $em, Slugger $slugger) {
+    public function __construct(EntityManager $em, EventDispatcher $eventDispatcher, Slugger $slugger) {
         $this->em = $em;
+		$this->eventDispatcher = $eventDispatcher;
         $this->slugger = $slugger;
     }
 
@@ -65,6 +72,8 @@ class ProjectManager {
         $this->em->persist($project);
         $this->em->flush($project);
 		
+		$this->eventDispatcher->dispatch(ProjectEvent::NAME, new ProjectEvent(ProjectEvent::TYPE_CREATION, $project));
+		
         return $project;
     }
 
@@ -90,6 +99,8 @@ class ProjectManager {
         }
 		
         $this->em->flush($project);
+		
+		$this->eventDispatcher->dispatch(ProjectEvent::NAME, new ProjectEvent(ProjectEvent::TYPE_UPDATE, $project));
 		
         return $project;
     }
