@@ -2,9 +2,11 @@
 
 namespace Developtech\AgilityBundle\Event;
 
+use Symfony\Component\EventDispatcher\Event;
+
 use Developtech\AgilityBundle\Model\ProjectModel;
 
-class ProjectEvent {
+class ProjectEvent extends Event {
     /** @var string **/
     protected $type;
     /** @var ProjectModel **/
