@@ -12,11 +12,20 @@ use Developtech\AgilityBundle\Model\RepositoryModel;
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="type", type="string", length=10)
  * @ORM\DiscriminatorMap({
- *     "github" = "Github"
+ *     "github" = "GithubRepository"
  * })
  */
 abstract class Repository extends RepositoryModel
 {
+	/**
+	 * @var int
+	 * 
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+	 * @ORM\Column(type="integer")
+	 */
+	protected $id;
+	
 	/**
 	 * @var string
 	 * 
@@ -24,4 +33,23 @@ abstract class Repository extends RepositoryModel
 	 * @ORM\JoinColumn(nullable=false) 
 	 */
 	protected $project;
+	
+	/**
+	 * @param int $id
+	 * @return Repository
+	 */
+	public function setId($id)
+	{
+		$this->id = $id;
+		
+		return $this;
+	}
+	
+	/**
+	 * @return int
+	 */
+	public function getId()
+	{
+		return $this->id;
+	}
 }

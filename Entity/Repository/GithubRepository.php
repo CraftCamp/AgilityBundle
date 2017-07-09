@@ -4,13 +4,11 @@ namespace Developtech\AgilityBundle\Entity\Repository;
 
 use Doctrine\ORM\Mapping as ORM;
 
-use Developtech\AgilityBundle\Model\RepositoryModel;
-
 /**
  * @ORM\Entity()
  * @ORM\Table(name="developtech_agility__repositories__github")
  */
-class GithubRepository extends RepositoryModel
+class GithubRepository extends Repository
 {
 	/**
 	 * @var string
