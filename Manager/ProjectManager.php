@@ -4,7 +4,7 @@ namespace Developtech\AgilityBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
 
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 use Developtech\AgilityBundle\Entity\Project;
 use Developtech\AgilityBundle\Event\ProjectEvent;
@@ -18,17 +18,17 @@ use Developtech\AgilityBundle\Utils\Slugger;
 class ProjectManager {
     /** @var EntityManager **/
     protected $em;
-	/** @var EventDispatcher **/
+	/** @var EventDispatcherInterface **/
 	protected $eventDispatcher;
     /** @var Slugger **/
     protected $slugger;
 
     /**
      * @param EntityManager $em
-	 * @param EventDispatcher $eventDispatcher
+	 * @param EventDispatcherInterface $eventDispatcher
      * @param Slugger $slugger
      */
-    public function __construct(EntityManager $em, EventDispatcher $eventDispatcher, Slugger $slugger) {
+    public function __construct(EntityManager $em, EventDispatcherInterface $eventDispatcher, Slugger $slugger) {
         $this->em = $em;
 		$this->eventDispatcher = $eventDispatcher;
         $this->slugger = $slugger;
