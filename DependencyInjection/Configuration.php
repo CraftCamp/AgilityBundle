@@ -22,6 +22,17 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->scalarNode('user_class')->isRequired()->end()
+                ->arrayNode('api')
+                    ->children()
+                        ->arrayNode('github')
+                            ->children()
+                                ->scalarNode('api_url')->end()
+                                ->scalarNode('client_id')->end()
+                                ->scalarNode('client_secret')->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
             ->end()
         ;
         return $treeBuilder;

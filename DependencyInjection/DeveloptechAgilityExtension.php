@@ -23,6 +23,10 @@ class DeveloptechAgilityExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         $container->setParameter('developtech_agility.user_class', $config['user_class']);
+        $container->setParameter('developtech_agility.available_api', [
+            'github'
+        ]);
+        $container->setParameter('developtech_agility.api', $config['api']);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
