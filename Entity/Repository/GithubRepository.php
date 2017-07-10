@@ -16,12 +16,23 @@ class GithubRepository extends Repository
 	 * @ORM\Column(type="string", length=255)
 	 */
 	protected $owner;
+	
+	/**
+	 * @var string
+	 * 
+	 * @ORM\Column(type="string", length=15)
+	 */
+	protected $ownerType;
+	
 	/**
 	 * @var string
 	 * 
 	 * @ORM\Column(type="string", length=255)
 	 */
 	protected $name;
+	
+	const OWNER_USER = 'user';
+	const OWNER_ORGANIZATION = 'organization';
 	
 	/**
 	 * @param string $owner
@@ -40,6 +51,25 @@ class GithubRepository extends Repository
 	public function getOwner()
 	{
 		return $this->owner;
+	}
+	
+	/**
+	 * @param string $ownerType
+	 * @return GithubRepository
+	 */
+	public function setOwnerType($ownerType)
+	{
+		$this->ownerType = $ownerType;
+		
+		return $this;
+	}
+	
+	/**
+	 * @return string
+	 */
+	public function getOwnerType()
+	{
+		return $this->ownerType;
 	}
 	
 	/**
