@@ -2,32 +2,45 @@
 services:
     developtech_agility.project_manager:
         class: Developtech\AgilityBundle\Manager\ProjectManager
+        public: true
         arguments:
             - "@doctrine.orm.entity_manager"
+            - "@developtech_agility.repository_manager"
             - "@event_dispatcher"
             - "@developtech_agility.slugger"
 
     developtech_agility.feature_manager:
         class: Developtech\AgilityBundle\Manager\FeatureManager
+        public: true
         arguments:
             - "@doctrine.orm.entity_manager"
             - "@developtech_agility.slugger"
 
     developtech_agility.feedback_manager:
         class: Developtech\AgilityBundle\Manager\FeedbackManager
+        public: true
         arguments:
             - "@doctrine.orm.entity_manager"
             - "@developtech_agility.slugger"
 
     developtech_agility.beta_test_manager:
         class: Developtech\AgilityBundle\Manager\BetaTestManager
+        public: true
         arguments:
             - "@doctrine.orm.entity_manager"
+
+    developtech_agility.repository_manager:
+        class: Developtech\AgilityBundle\Manager\RepositoryManager
+        public: true
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        calls:
+            - ["setGithubGateway", ["@?developtech_agility.github_gateway"]]
 
     developtech_agility.slugger:
         class: Developtech\AgilityBundle\Utils\Slugger
 
-    devleoptech_agility.doctrine_mapping.listener:
+    developtech_agility.doctrine_mapping.listener:
         class: Developtech\AgilityBundle\EventSubscriber\DynamicRelationSubscriber
         arguments:
             - "%developtech_agility.user_class%"

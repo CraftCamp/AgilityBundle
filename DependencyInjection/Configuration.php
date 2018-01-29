@@ -29,6 +29,7 @@ class Configuration implements ConfigurationInterface
                                 ->scalarNode('api_url')->end()
                                 ->scalarNode('client_id')->end()
                                 ->scalarNode('client_secret')->end()
+                                ->scalarNode('redirect_uri')->end()
                             ->end()
                         ->end()
                     ->end()

@@ -26,7 +26,9 @@ class DeveloptechAgilityExtension extends Extension
         $container->setParameter('developtech_agility.available_api', [
             'github'
         ]);
-        $container->setParameter('developtech_agility.api', $config['api']);
+        if (isset($config['api'])) {
+            $container->setParameter('developtech_agility.api', $config['api']);
+        }
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');

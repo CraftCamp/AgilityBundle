@@ -61,3 +61,8 @@ liip_functional_test:
 
 developtech_agility:
     user_class: Developtech\AgilityBundle\Tests\Mock\User
+    api:
+        github:
+            api_url: "https://api.github.com/v3"
+            client_id: "934248fd14b80bd1f055"
+            client_secret: "fc3a9ec960114024d7c1af38b7e773988f5d2619"

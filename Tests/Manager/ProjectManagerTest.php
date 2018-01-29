@@ -16,7 +16,11 @@ class ProjectManagerTest extends \PHPUnit_Framework_TestCase {
     protected $manager;
 
     public function setUp() {
-        $this->manager = new ProjectManager($this->getEntityManagerMock(), new Slugger(), Project::class);
+        $this->manager = new ProjectManager(
+			$this->getEntityManagerMock(),
+			$this->getEventDispatcherMock(),
+			new Slugger()
+		);
     }
 
     public function testGetProjects() {
@@ -150,4 +154,19 @@ class ProjectManagerTest extends \PHPUnit_Framework_TestCase {
             ->setCreatedAt(new \DateTime()),
         ];
     }
+	
+	public function getEventDispatcherMock()
+	{
+		$eventDispatcherMock = $this
+			->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcher')
+			->disableOriginalConstructor()
+			->getMock()
+		;
+		$eventDispatcherMock
+			->expects($this->any())
+			->method('dispatch')
+			->willReturn(true)
+		;
+		return $eventDispatcherMock;
+	}
 }

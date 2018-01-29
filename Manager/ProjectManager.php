@@ -18,6 +18,8 @@ use Developtech\AgilityBundle\Utils\Slugger;
 class ProjectManager {
     /** @var EntityManager **/
     protected $em;
+	/** @var RepositoryManager **/
+	protected $repositoryManager;
 	/** @var EventDispatcherInterface **/
 	protected $eventDispatcher;
     /** @var Slugger **/
@@ -25,11 +27,13 @@ class ProjectManager {
 
     /**
      * @param EntityManager $em
+	 * @param RepositoryManager $repositoryManager
 	 * @param EventDispatcherInterface $eventDispatcher
      * @param Slugger $slugger
      */
-    public function __construct(EntityManager $em, EventDispatcherInterface $eventDispatcher, Slugger $slugger) {
+    public function __construct(EntityManager $em, RepositoryManager $repositoryManager, EventDispatcherInterface $eventDispatcher, Slugger $slugger) {
         $this->em = $em;
+		$this->repositoryManager = $repositoryManager;
 		$this->eventDispatcher = $eventDispatcher;
         $this->slugger = $slugger;
     }
@@ -58,9 +62,10 @@ class ProjectManager {
      * @param string $name
 	 * @param string $description
      * @param UserInterface $productOwner
+	 * @param array $repositories
      * @return \DevelopTech\AgilityBundle\ProjectModel
      */
-    public function createProject($name, $description, UserInterface $productOwner) {
+    public function createProject($name, $description, UserInterface $productOwner, $repositories = []) {
         $project =
             (new Project())
             ->setName($name)
@@ -71,6 +76,8 @@ class ProjectManager {
 		
         $this->em->persist($project);
         $this->em->flush($project);
+		
+		$this->repositoryManager->createRepositories($project, $repositories);
 		
 		$this->eventDispatcher->dispatch(ProjectEvent::NAME, new ProjectEvent(ProjectEvent::TYPE_CREATION, $project));
 		
