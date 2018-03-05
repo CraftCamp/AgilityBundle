@@ -6,12 +6,10 @@ use Doctrine\ORM\EntityManager;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-use Developtech\AgilityBundle\Entity\Project;
+use Developtech\AgilityBundle\Model\ProjectModel;
 use Developtech\AgilityBundle\Event\ProjectEvent;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
-use Symfony\Component\Security\Core\User\UserInterface;
 
 use Developtech\AgilityBundle\Utils\Slugger;
 
@@ -31,7 +29,8 @@ class ProjectManager {
 	 * @param EventDispatcherInterface $eventDispatcher
      * @param Slugger $slugger
      */
-    public function __construct(EntityManager $em, RepositoryManager $repositoryManager, EventDispatcherInterface $eventDispatcher, Slugger $slugger) {
+    public function __construct(EntityManager $em, RepositoryManager $repositoryManager, EventDispatcherInterface $eventDispatcher, Slugger $slugger)
+    {
         $this->em = $em;
 		$this->repositoryManager = $repositoryManager;
 		$this->eventDispatcher = $eventDispatcher;
@@ -41,8 +40,9 @@ class ProjectManager {
     /**
      * @return array
      */
-    public function getProjects() {
-        return $this->em->getRepository(Project::class)->findAll();
+    public function getProjects()
+    {
+        return $this->em->getRepository(ProjectModel::class)->findAll();
     }
 
     /**
@@ -50,29 +50,22 @@ class ProjectManager {
      * @throws NotFoundHttpException
      * @return ProjectModel
      */
-    public function getProject($slug) {
-        $project = $this->em->getRepository(Project::class)->findOneBySlug($slug);
-        if($project === null) {
+    public function getProject($slug)
+    {
+        $project = $this->em->getRepository(ProjectModel::class)->findOneBySlug($slug);
+        if ($project === null) {
             throw new NotFoundHttpException('Project not found');
         }
         return $project;
     }
 
     /**
-     * @param string $name
-	 * @param string $description
-     * @param UserInterface $productOwner
+     * @param ProjectModel $project
 	 * @param array $repositories
-     * @return \DevelopTech\AgilityBundle\ProjectModel
      */
-    public function createProject($name, $description, UserInterface $productOwner, $repositories = []) {
-        $project =
-            (new Project())
-            ->setName($name)
-            ->setSlug($this->slugger->slugify($name))
-			->setDescription($description)
-            ->setProductOwner($productOwner)
-        ;
+    public function createProject(ProjectModel $project, $repositories = [])
+    {
+        $project->setSlug($this->slugger->slugify($project->getName()));
 		
         $this->em->persist($project);
         $this->em->flush($project);
@@ -80,35 +73,15 @@ class ProjectManager {
 		$this->repositoryManager->createRepositories($project, $repositories);
 		
 		$this->eventDispatcher->dispatch(ProjectEvent::NAME, new ProjectEvent(ProjectEvent::TYPE_CREATION, $project));
-		
-        return $project;
     }
 
     /**
-     * @param integer $id
-     * @param string $name
-	 * @param string $description
-     * @param UserInterface $productOwner
-     * @throws NotFoundHttpException
-     * @return ProjectModel
+     * @param ProjectModel $project
      */
-    public function editProject($id, $name, $description, UserInterface $productOwner = null) {
-        if (($project = $this->em->getRepository(Project::class)->find($id)) === null) {
-            throw new NotFoundHttpException('Project not found');
-        }
-        $project
-            ->setName($name)
-            ->setSlug($this->slugger->slugify($name))
-			->setDescription($description)
-        ;
-        if($productOwner !== null) {
-            $project->setProductOwner($productOwner);
-        }
-		
+    public function editProject(ProjectModel $project)
+    {
         $this->em->flush($project);
 		
 		$this->eventDispatcher->dispatch(ProjectEvent::NAME, new ProjectEvent(ProjectEvent::TYPE_UPDATE, $project));
-		
-        return $project;
     }
 }
