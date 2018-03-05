@@ -7,12 +7,19 @@ use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\ClassMetadata;
 
+use Developtech\AgilityBundle\Entity\{
+    BetaTester,
+    Feature,
+    Feedback,
+    Project
+};
+
 class DynamicRelationSubscriber implements EventSubscriber
 {
-    const MODEL_PROJECT = 'Developtech\AgilityBundle\Entity\Project';
-    const MODEL_FEATURE = 'Developtech\AgilityBundle\Entity\Feature';
-    const MODEL_FEEDBACK = 'Developtech\AgilityBundle\Entity\Feedback';
-    const MODEL_BETA_TESTER = 'Developtech\AgilityBundle\Entity\BetaTester';
+    const MODEL_PROJECT = Project::class;
+    const MODEL_FEATURE = Feature::class;
+    const MODEL_FEEDBACK = Feedback::class;
+    const MODEL_BETA_TESTER = BetaTester::class;
 
     /** @var string **/
     protected $userClass;

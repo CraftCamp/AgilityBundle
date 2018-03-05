@@ -27,7 +27,7 @@ class BetaTest extends BetaTestModel {
      */
     protected $slug;
     /**
-     * @ORM\ManyToOne(targetEntity="Developtech\AgilityBundle\Entity\Project", inversedBy="betaTests")
+     * @ORM\ManyToOne(targetEntity="Developtech\AgilityBundle\Model\ProjectModel", inversedBy="betaTests")
      * @ORM\JoinColumn(name="project_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $project;
@@ -48,7 +48,8 @@ class BetaTest extends BetaTestModel {
      */
     protected $updatedAt;
     /**
-     * @ORM\ManyToMany(targetEntity="Developtech\AgilityBundle\Entity\BetaTester")
+     * @ORM\ManyToMany(targetEntity="Developtech\AgilityBundle\Model\BetaTesterModel")
+     * @ORM\JoinTable(name="developtech_agility__beta_test_users")
      */
     protected $betaTesters;
 

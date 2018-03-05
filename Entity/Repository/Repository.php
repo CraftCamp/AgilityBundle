@@ -29,7 +29,7 @@ abstract class Repository extends RepositoryModel
 	/**
 	 * @var string
 	 * 
-	 * @ORM\ManyToOne(targetEntity="Developtech\AgilityBundle\Entity\Project", inversedBy="repositories")
+	 * @ORM\ManyToOne(targetEntity="Developtech\AgilityBundle\Model\ProjectModel", inversedBy="repositories")
 	 * @ORM\JoinColumn(nullable=false) 
 	 */
 	protected $project;

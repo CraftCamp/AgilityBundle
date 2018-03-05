@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Developtech\AgilityBundle\Model\ProjectModel;
 
 /**
- * @ORM\Entity(repositoryClass="Developtech\AgilityBundle\Repository\ProjectRepository")
+ * @ORM\MappedSuperclass
  * @ORM\Table(name="developtech_agility__projects")
  * @ORM\HasLifecycleCallbacks()
  */
@@ -45,7 +45,7 @@ class Project extends ProjectModel
     protected $createdAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="Developtech\AgilityBundle\Entity\BetaTest", mappedBy="project")
+     * @ORM\OneToMany(targetEntity="Developtech\AgilityBundle\Model\BetaTestModel", mappedBy="project")
      */
     protected $betaTests;
 
@@ -60,7 +60,7 @@ class Project extends ProjectModel
     protected $feedbacks;
 	
 	/**
-	 * ORM\OneToMany(targetEntity="Developtech\AgilityBundle\Entity\Repository\Repository", mappedBy="project")
+	 * ORM\OneToMany(targetEntity="Developtech\AgilityBundle\Model\RepositoryModel", mappedBy="project")
 	 */
 	protected $repositories;
 
