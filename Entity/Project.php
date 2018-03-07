@@ -43,6 +43,11 @@ class Project extends ProjectModel
      * @ORM\Column(name="created_at", type="datetime")
      */
     protected $createdAt;
+    
+    /**
+     * @ORM\Column(name="updated_at", type="datetime")
+     */
+    protected $updatedAt;
 
     /**
      * @ORM\OneToMany(targetEntity="Developtech\AgilityBundle\Model\BetaTestModel", mappedBy="project")
@@ -68,7 +73,7 @@ class Project extends ProjectModel
      * @ORM\PrePersist()
      */
     public function prePersist() {
-        $this->createdAt = new \DateTime();
+        $this->createdAt = $this->updatedAt = new \DateTime();
     }
 
     /**

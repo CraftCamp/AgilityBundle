@@ -18,6 +18,8 @@ abstract class ProjectModel
     protected $description;
     /** @var \DateTime **/
     protected $createdAt;
+    /** @var \DateTime **/
+    protected $updatedAt;
     /** @var ArrayCollection **/
     protected $betaTests;
     /** @var UserInterface **/
