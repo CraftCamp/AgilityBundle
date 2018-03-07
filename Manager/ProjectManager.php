@@ -10,6 +10,7 @@ use Developtech\AgilityBundle\Model\ProjectModel;
 use Developtech\AgilityBundle\Event\ProjectEvent;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 use Developtech\AgilityBundle\Utils\Slugger;
 
@@ -54,7 +55,7 @@ class ProjectManager {
     {
         $project = $this->em->getRepository(ProjectModel::class)->findOneBySlug($slug);
         if ($project === null) {
-            throw new NotFoundHttpException('Project not found');
+            throw new NotFoundHttpException('projects.not_found');
         }
         return $project;
     }
@@ -65,6 +66,9 @@ class ProjectManager {
      */
     public function createProject(ProjectModel $project, $repositories = [])
     {
+        if ($this->em->getRepository(ProjectModel::class)->findOneByName($project->getName()) !== null) {
+            throw new BadRequestHttpException('projects.existing_name');
+        }
         $project->setSlug($this->slugger->slugify($project->getName()));
 		
         $this->em->persist($project);
